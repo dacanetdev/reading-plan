@@ -106,9 +106,9 @@
       "finished": null
     },
     "coded": {
-      "pagesRead": 45,
+      "pagesRead": 47,
       "started": "2026-05-21",
-      "finished": null
+      "finished": "2026-05-21"
     },
     "effective-se": {
       "pagesRead": 0,
@@ -155,7 +155,7 @@
   "dailyLog": {
     "2026-05-21": {
       "books": {
-        "coded": 45
+        "coded": 47
       },
       "courses": {}
     }
