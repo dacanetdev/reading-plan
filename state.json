@@ -143,7 +143,7 @@
   },
   "courseProgress": {
     "aws-ccp": {
-      "minutesWatched": 66
+      "minutesWatched": 246
     },
     "llm-engineering": {
       "minutesWatched": 612
@@ -158,7 +158,9 @@
         "coded": 47,
         "talent-code": 300
       },
-      "courses": {}
+      "courses": {
+        "aws-ccp": 180
+      }
     }
   },
   "streak": {
