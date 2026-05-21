@@ -1,8 +1,8 @@
 {
   "progress": {
     "python-made-easy": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 100,
+      "started": "2026-05-21",
       "finished": null
     },
     "python-practice-lab": {
@@ -156,7 +156,8 @@
     "2026-05-21": {
       "books": {
         "coded": 47,
-        "talent-code": 300
+        "talent-code": 300,
+        "python-made-easy": 100
       },
       "courses": {
         "aws-ccp": 239,
