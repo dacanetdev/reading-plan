@@ -146,7 +146,7 @@
       "minutesWatched": 305
     },
     "llm-engineering": {
-      "minutesWatched": 612
+      "minutesWatched": 1092
     },
     "data-science": {
       "minutesWatched": 156
@@ -159,7 +159,8 @@
         "talent-code": 300
       },
       "courses": {
-        "aws-ccp": 239
+        "aws-ccp": 239,
+        "llm-engineering": 480
       }
     }
   },
