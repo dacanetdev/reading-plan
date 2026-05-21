@@ -96,9 +96,9 @@
       "finished": null
     },
     "talent-code": {
-      "pagesRead": 275,
+      "pagesRead": 296,
       "started": "2026-05-21",
-      "finished": null
+      "finished": "2026-05-21"
     },
     "thinking-fast-slow": {
       "pagesRead": 0,
@@ -156,7 +156,7 @@
     "2026-05-21": {
       "books": {
         "coded": 47,
-        "talent-code": 275
+        "talent-code": 300
       },
       "courses": {}
     }
