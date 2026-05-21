@@ -1,0 +1,160 @@
+{
+  "progress": {
+    "python-made-easy": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "python-practice-lab": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "python-workout": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "problem-solving-python": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "coding-ai-python": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "sw-design-python": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "python-oop": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "csharp-concurrency": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "microservices-dotnet": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "fundamentals-swa": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "mastering-clean-arch": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "building-ai-agents": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "advanced-ai-ds": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "modern-angular": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "build-ai-web": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "learning-python": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "csharp14-dotnet10": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "realworld-web-dotnet": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "system-design-aws": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "talent-code": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "thinking-fast-slow": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "coded": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "effective-se": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "investing-programmers": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "fullstack-js": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "mastering-claude": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "genai-sw-dev": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    },
+    "arch-as-code": {
+      "pagesRead": 0,
+      "started": null,
+      "finished": null
+    }
+  },
+  "courseProgress": {
+    "aws-ccp": {
+      "minutesWatched": 66
+    },
+    "llm-engineering": {
+      "minutesWatched": 612
+    },
+    "data-science": {
+      "minutesWatched": 156
+    }
+  },
+  "dailyLog": {},
+  "streak": {
+    "lastLogDate": null,
+    "count": 0
+  }
+}
