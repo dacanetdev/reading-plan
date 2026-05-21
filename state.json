@@ -106,8 +106,8 @@
       "finished": null
     },
     "coded": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 10,
+      "started": "2026-05-21",
       "finished": null
     },
     "effective-se": {
@@ -152,9 +152,16 @@
       "minutesWatched": 156
     }
   },
-  "dailyLog": {},
+  "dailyLog": {
+    "2026-05-21": {
+      "books": {
+        "coded": 10
+      },
+      "courses": {}
+    }
+  },
   "streak": {
-    "lastLogDate": null,
-    "count": 0
+    "lastLogDate": "2026-05-21",
+    "count": 1
   }
 }
