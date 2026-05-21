@@ -1,7 +1,7 @@
 {
   "progress": {
     "python-made-easy": {
-      "pagesRead": 100,
+      "pagesRead": 105,
       "started": "2026-05-21",
       "finished": null
     },
@@ -157,7 +157,7 @@
       "books": {
         "coded": 47,
         "talent-code": 300,
-        "python-made-easy": 100
+        "python-made-easy": 105
       },
       "courses": {
         "aws-ccp": 239,
