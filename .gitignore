@@ -1,0 +1,7 @@
+# Book files — excluded from version control
+*.pdf
+*.epub
+
+# OS
+.DS_Store
+Thumbs.db

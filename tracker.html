@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Tracker — David</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:            #0b0907;
+  --surface:       #141108;
+  --surface-hi:    #1e1910;
+  --border:        #2c2518;
+  --border-hi:     #3d3420;
+  --accent:        #d49428;
+  --accent-dim:    rgba(212,148,40,0.12);
+  --accent-glow:   rgba(212,148,40,0.06);
+  --read:          #5aa3d8;
+  --read-dim:      rgba(90,163,216,0.12);
+  --speech:        #e07c44;
+  --speech-dim:    rgba(224,124,68,0.12);
+  --ref:           #68b87e;
+  --ref-dim:       rgba(104,184,126,0.12);
+  --udemy:         #a87ed4;
+  --udemy-dim:     rgba(168,126,212,0.12);
+  --text:          #f2e8d4;
+  --text-muted:    #7a6e5c;
+  --text-dim:      #3d3428;
+  --success:       #68b87e;
+  --warn:          #d49428;
+  --danger:        #c4574a;
+  --radius:        10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(212,148,40,0.04) 0%, transparent 60%);
+}
+
+/* ── HEADER ── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px 16px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(20,17,8,0.7);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.logo span { color: var(--text-muted); font-weight: 500; font-style: italic; }
+.header-right { display: flex; align-items: center; gap: 20px; }
+.date-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-hi);
+  border: 1px solid var(--border-hi);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.streak-badge .flame { font-size: 15px; }
+
+/* ── PHASE BANNER ── */
+.phase-banner {
+  margin: 20px 28px 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.phase-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 3px;
+}
+.phase-info .phase-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.phase-progress-bar {
+  flex: 1;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+.phase-progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--border-hi);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.phase-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-dim) 0%, var(--accent) 100%);
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.phase-day-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── TARGETS BAR ── */
+.targets-bar {
+  margin: 12px 28px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.target-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.target-pill.read    { background: var(--read-dim);   border-color: rgba(90,163,216,0.25);   color: var(--read);   }
+.target-pill.speech  { background: var(--speech-dim); border-color: rgba(224,124,68,0.25);   color: var(--speech); }
+.target-pill.ref     { background: var(--ref-dim);    border-color: rgba(104,184,126,0.25);  color: var(--ref);    }
+.target-pill.udemy   { background: var(--udemy-dim);  border-color: rgba(168,126,212,0.25);  color: var(--udemy);  }
+.target-pill .check  { opacity: 0; font-size: 10px; transition: opacity 0.3s; }
+.target-pill.met .check { opacity: 1; }
+.target-pill.met { opacity: 0.65; }
+.target-today { color: rgba(255,255,255,0.4); font-size: 10px; margin-left: 2px; }
+
+/* ── SECTIONS ── */
+.section {
+  margin: 20px 28px 0;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── BOOK CARDS GRID ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.book-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.book-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.book-card.read::before    { background: var(--read); }
+.book-card.speech::before  { background: var(--speech); }
+.book-card.ref::before     { background: var(--ref); }
+.book-card.udemy::before   { background: var(--udemy); }
+.book-card:hover { border-color: var(--border-hi); transform: translateY(-1px); }
+.book-card:hover::before { opacity: 1; }
+.book-card.done { opacity: 0.5; pointer-events: none; }
+.book-card.done::after {
+  content: '✓ DONE';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--success);
+  opacity: 0.6;
+  letter-spacing: 0.15em;
+  pointer-events: none;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.track-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.track-badge.read    { background: var(--read-dim);   color: var(--read);   }
+.track-badge.speech  { background: var(--speech-dim); color: var(--speech); }
+.track-badge.ref     { background: var(--ref-dim);    color: var(--ref);    }
+.track-badge.udemy   { background: var(--udemy-dim);  color: var(--udemy);  }
+
+.today-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.today-badge.visible { opacity: 1; }
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text);
+}
+.card-author {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+/* ── PROGRESS ── */
+.progress-section { display: flex; flex-direction: column; gap: 6px; }
+.progress-track {
+  height: 5px;
+  background: var(--border-hi);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.read    .progress-fill { background: linear-gradient(90deg, rgba(90,163,216,0.5), var(--read)); }
+.speech  .progress-fill { background: linear-gradient(90deg, rgba(224,124,68,0.5), var(--speech)); }
+.ref     .progress-fill { background: linear-gradient(90deg, rgba(104,184,126,0.5), var(--ref)); }
+.udemy   .progress-fill { background: linear-gradient(90deg, rgba(168,126,212,0.5), var(--udemy)); }
+
+.progress-stats {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.progress-stats .current {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+.progress-stats .pct {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+}
+.read   .progress-stats .pct { color: var(--read); }
+.speech .progress-stats .pct { color: var(--speech); }
+.ref    .progress-stats .pct { color: var(--ref); }
+.udemy  .progress-stats .pct { color: var(--udemy); }
+
+/* ── QUICK-ADD ── */
+.quick-add {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.qa-btn {
+  flex: 1;
+  background: var(--surface-hi);
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 7px 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  user-select: none;
+}
+.qa-btn:hover {
+  background: var(--border-hi);
+  color: var(--text);
+  border-color: var(--accent-dim);
+  transform: translateY(-1px);
+}
+.qa-btn:active { transform: translateY(0) scale(0.97); }
+.qa-btn.custom-btn {
+  flex: 0 0 32px;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.qa-btn.undo-btn {
+  flex: 0 0 32px;
+  font-size: 13px;
+  opacity: 0;
+  transition: all 0.15s, opacity 0.3s;
+}
+.qa-btn.undo-btn.visible { opacity: 1; }
+
+/* ── INLINE CUSTOM INPUT ── */
+.custom-input-wrap {
+  display: none;
+  align-items: center;
+  gap: 6px;
+}
+.custom-input-wrap.open { display: flex; }
+.custom-input-wrap input {
+  flex: 1;
+  background: var(--surface-hi);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 10px;
+  outline: none;
+  min-width: 0;
+}
+.custom-input-wrap input::placeholder { color: var(--text-dim); font-weight: 400; }
+.confirm-btn {
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  color: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.confirm-btn:hover { filter: brightness(1.1); }
+.cancel-btn {
+  background: transparent;
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 7px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+/* ── DAILY SUMMARY ── */
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.summary-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.summary-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: 70px;
+  flex-shrink: 0;
+}
+.summary-label.read    { color: var(--read); }
+.summary-label.speech  { color: var(--speech); }
+.summary-label.ref     { color: var(--ref); }
+.summary-label.udemy   { color: var(--udemy); }
+.summary-bar-wrap {
+  flex: 1;
+  height: 4px;
+  background: var(--border-hi);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.summary-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  max-width: 100%;
+}
+.read   .summary-bar-fill { background: var(--read); }
+.speech .summary-bar-fill { background: var(--speech); }
+.ref    .summary-bar-fill { background: var(--ref); }
+.udemy  .summary-bar-fill { background: var(--udemy); }
+.summary-nums {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 90px;
+  text-align: right;
+}
+.summary-nums .done { color: var(--success); }
+.summary-nums .over { color: var(--accent); }
+.summary-nums .zero { color: var(--text-dim); }
+
+/* ── HISTORY SECTION ── */
+.history-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.history-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.history-panel {
+  display: none;
+  margin-top: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.history-panel.open { display: block; }
+.history-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  align-items: center;
+}
+.history-row:last-child { border-bottom: none; }
+.history-row.header {
+  background: var(--surface-hi);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+}
+.history-row .date-col { color: var(--text); }
+.history-val { color: var(--text); }
+
+/* ── ANIMATIONS ── */
+@keyframes pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.popping { animation: pop 0.25s ease-out; }
+
+@keyframes flash-green {
+  0%   { box-shadow: 0 0 0 0 rgba(104,184,126,0); }
+  40%  { box-shadow: 0 0 0 6px rgba(104,184,126,0.2); }
+  100% { box-shadow: 0 0 0 0 rgba(104,184,126,0); }
+}
+.flash-done { animation: flash-green 0.5s ease-out; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  header, .phase-banner, .targets-bar, .section { padding-left: 16px; padding-right: 16px; margin-left: 0; margin-right: 0; }
+  .header-right .date-display { display: none; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .history-row { grid-template-columns: 80px 1fr 1fr; }
+  .history-row .ref-col, .history-row .udemy-col { display: none; }
+}
+
+/* ── SYNC BADGE ── */
+.sync-badge {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border-hi);
+  cursor: pointer;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+.sync-badge.saving { background: var(--accent); animation: sync-pulse 1.2s infinite; }
+.sync-badge.saved  { background: var(--success); }
+.sync-badge.error  { background: var(--danger); }
+.sync-badge.none   { background: var(--border-hi); }
+@keyframes sync-pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+/* ── SETTINGS BUTTON ── */
+.settings-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 14px;
+  width: 30px; height: 30px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.settings-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 200;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  border-radius: 12px;
+  width: 100%; max-width: 420px;
+  margin: 20px;
+}
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; color: var(--accent);
+}
+.modal-close {
+  background: none; border: none;
+  color: var(--text-muted); font-size: 16px;
+  cursor: pointer; padding: 4px 8px;
+  transition: color 0.2s; border-radius: 4px;
+}
+.modal-close:hover { color: var(--text); }
+.modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.modal-field { display: flex; flex-direction: column; gap: 6px; }
+.modal-field label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted);
+}
+.modal-field input {
+  background: var(--surface-hi);
+  border: 1px solid var(--border-hi);
+  border-radius: 6px; color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; padding: 9px 12px; outline: none;
+  transition: border-color 0.2s;
+}
+.modal-field input:focus { border-color: var(--accent); }
+.modal-field input::placeholder { color: var(--text-dim); }
+.modal-hint {
+  font-size: 11px; color: var(--text-muted); line-height: 1.5;
+}
+.modal-hint code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--surface-hi); border-radius: 3px;
+  padding: 1px 4px; font-size: 10px;
+}
+.modal-error {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--danger); min-height: 16px;
+}
+.modal-footer {
+  padding: 16px 24px 20px;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 10px; justify-content: flex-end;
+}
+.btn-primary {
+  background: var(--accent); border: none; border-radius: 6px;
+  color: var(--bg); font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; padding: 9px 18px;
+  cursor: pointer; transition: filter 0.15s;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
+.btn-secondary {
+  background: transparent; border: 1px solid var(--border-hi);
+  border-radius: 6px; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; padding: 8px 14px;
+  cursor: pointer; transition: all 0.15s; text-transform: uppercase;
+}
+.btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
+
+/* ── LOADING OVERLAY ── */
+.loading-overlay {
+  display: none; position: fixed; inset: 0;
+  background: var(--bg); z-index: 300;
+  align-items: center; justify-content: center;
+  flex-direction: column; gap: 16px;
+}
+.loading-overlay.open { display: flex; }
+.loading-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); animation: sync-pulse 1.2s infinite;
+}
+.loading-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Reading<span>Plan</span></div>
+  <div class="header-right">
+    <div class="date-display" id="date-display"></div>
+    <div class="streak-badge">
+      <span class="flame">🔥</span>
+      <span id="streak-count">0</span>
+    </div>
+    <div class="sync-badge none" id="sync-badge" onclick="syncBadgeClick()"></div>
+    <button class="settings-btn" onclick="openSettings()" title="GitHub sync settings">⚙</button>
+  </div>
+</header>
+
+<div class="phase-banner">
+  <div class="phase-info">
+    <h2 id="phase-name">—</h2>
+    <div class="phase-meta" id="phase-meta">—</div>
+  </div>
+  <div class="phase-progress-bar">
+    <div class="phase-day-label" id="phase-day-label">—</div>
+    <div class="phase-progress-track">
+      <div class="phase-progress-fill" id="phase-progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+</div>
+
+<div class="targets-bar" id="targets-bar"></div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Active Books</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid" id="books-grid"></div>
+</div>
+
+<div class="section" id="courses-section">
+  <div class="section-header">
+    <div class="section-title">Udemy Courses</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid" id="courses-grid"></div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Today's Log</div>
+    <div class="section-line"></div>
+    <button class="history-toggle" onclick="toggleHistory()">History</button>
+  </div>
+  <div class="summary-card" id="summary-card"></div>
+  <div class="history-panel" id="history-panel"></div>
+</div>
+
+<div class="modal-overlay" id="settings-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>GitHub Sync</h3>
+      <button class="modal-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Personal Access Token</label>
+        <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
+        <div class="modal-hint">
+          Create a token with <code>Contents: Read &amp; Write</code> on this repo
+          (fine-grained) or <code>repo</code> scope (classic). Stored only in this browser.
+        </div>
+      </div>
+      <div class="modal-field">
+        <label>GitHub Owner (username or org)</label>
+        <input type="text" id="gh-owner" placeholder="your-username">
+      </div>
+      <div class="modal-field">
+        <label>Repository Name</label>
+        <input type="text" id="gh-repo" placeholder="reading-plan">
+      </div>
+      <div class="modal-error" id="settings-error"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeSettings()">Cancel</button>
+      <button class="btn-primary" id="save-settings-btn" onclick="saveSettings()">Connect</button>
+    </div>
+  </div>
+</div>
+
+<div class="loading-overlay" id="loading-overlay">
+  <div class="loading-dot"></div>
+  <div class="loading-text" id="loading-text">Loading…</div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────
+//  DATA
+// ─────────────────────────────────────────────────────────────────────
+
+const PLAN_START = '2026-04-06';
+
+const PHASES = [
+  {
+    number: 1, name: 'Phase 1 · Python Quick Start',
+    start: '2026-04-06', end: '2026-05-03',
+    readBooks:     ['python-made-easy','python-practice-lab','python-workout'],
+    speechifyBooks:['talent-code'],
+    referenceBooks:['system-design-aws','learning-python'],
+    courses:       ['aws-ccp','llm-engineering','data-science'],
+    targets:       { read: 19, speech: 11, ref: 25, udemy: 60 }
+  },
+  {
+    number: 2, name: 'Phase 2 · .NET Core ★',
+    start: '2026-05-04', end: '2026-06-14',
+    readBooks:     ['csharp-concurrency','microservices-dotnet'],
+    speechifyBooks:['thinking-fast-slow','coded'],
+    referenceBooks:['csharp14-dotnet10'],
+    courses:       ['aws-ccp','llm-engineering','data-science'],
+    targets:       { read: 19, speech: 13, ref: 20, udemy: 60 }
+  },
+  {
+    number: 3, name: 'Phase 3 · Architecture & Design',
+    start: '2026-06-15', end: '2026-07-26',
+    readBooks:     ['fundamentals-swa','mastering-clean-arch'],
+    speechifyBooks:['effective-se','investing-programmers'],
+    referenceBooks:[],
+    courses:       ['llm-engineering','data-science'],
+    targets:       { read: 17, speech: 15, ref: 0, udemy: 40 }
+  },
+  {
+    number: 4, name: 'Phase 4 · Angular & Web ★',
+    start: '2026-07-27', end: '2026-08-23',
+    readBooks:     ['modern-angular','build-ai-web'],
+    speechifyBooks:['fullstack-js'],
+    referenceBooks:['realworld-web-dotnet'],
+    courses:       ['llm-engineering','data-science'],
+    targets:       { read: 25, speech: 17, ref: 12, udemy: 40 }
+  },
+  {
+    number: 5, name: 'Phase 5 · AI Deep Dive',
+    start: '2026-08-24', end: '2026-10-04',
+    readBooks:     ['building-ai-agents','advanced-ai-ds'],
+    speechifyBooks:['mastering-claude','genai-sw-dev','arch-as-code'],
+    referenceBooks:['realworld-web-dotnet'],
+    courses:       ['llm-engineering','data-science'],
+    targets:       { read: 16, speech: 16, ref: 12, udemy: 40 }
+  },
+  {
+    number: 6, name: 'Phase 6 · Python Applied',
+    start: '2026-10-05', end: '2026-11-15',
+    readBooks:     ['problem-solving-python','coding-ai-python'],
+    speechifyBooks:[],
+    referenceBooks:['learning-python'],
+    courses:       ['data-science'],
+    targets:       { read: 18, speech: 0, ref: 10, udemy: 20 }
+  },
+  {
+    number: 7, name: 'Phase 7 · Python Advanced',
+    start: '2026-11-16', end: '2026-12-27',
+    readBooks:     ['python-oop','sw-design-python'],
+    speechifyBooks:[],
+    referenceBooks:['learning-python'],
+    courses:       ['data-science'],
+    targets:       { read: 24, speech: 0, ref: 10, udemy: 20 }
+  },
+];
+
+const BOOKS = {
+  'python-made-easy':         { title:'Python Made Easy',                      author:'Marco Gähler',         track:'read',   pages:135  },
+  'python-practice-lab':      { title:'Python Practice Lab',                   author:'Lim, Cheung',           track:'read',   pages:161  },
+  'python-workout':           { title:'Python Workout',                        author:'Reuven M. Lerner',      track:'read',   pages:241  },
+  'problem-solving-python':   { title:'Problem Solving with Python',           author:'Michael D. Smith',      track:'read',   pages:433  },
+  'coding-ai-python':         { title:'Coding with AI Examples in Python',     author:'Jeremy C. Morgan',      track:'read',   pages:338  },
+  'sw-design-python':         { title:'Software Design for Python Programmers',author:'Ronald Mak',            track:'read',   pages:458  },
+  'python-oop':               { title:'Python OOP (5th Ed)',                   author:'Lott, Phillips',        track:'read',   pages:543  },
+  'csharp-concurrency':       { title:'C# Concurrency',                        author:'Nir Dobovizki',         track:'read',   pages:250  },
+  'microservices-dotnet':     { title:'Microservices Design Patterns in .NET', author:'Trevoir Williams',      track:'read',   pages:538  },
+  'fundamentals-swa':         { title:'Fundamentals of Software Architecture', author:'Richards, Ford',        track:'read',   pages:546  },
+  'mastering-clean-arch':     { title:'Mastering Clean Architecture',          author:'Alaric J. Fenwick',     track:'read',   pages:141  },
+  'building-ai-agents':       { title:'Building Applications with AI Agents',  author:'Michael Albada',        track:'read',   pages:355  },
+  'advanced-ai-ds':           { title:'Advanced AI and Data Science Apps',     author:'Sivabalaselvamani et al.',track:'read', pages:329  },
+  'modern-angular':           { title:'Modern Angular',                        author:'Armen Vardanyan',       track:'read',   pages:306  },
+  'build-ai-web':             { title:'Build AI-Enhanced Web Apps',            author:'Theo Despoudis',        track:'read',   pages:394  },
+  'learning-python':          { title:'Learning Python',                       author:'Mark Lutz',             track:'ref',    pages:2334 },
+  'csharp14-dotnet10':        { title:'C# 14 and .NET 10',                     author:'Mark J. Price',         track:'ref',    pages:829  },
+  'realworld-web-dotnet':     { title:'Real-World Web Dev with .NET 10',       author:'Mark J. Price',         track:'ref',    pages:825  },
+  'system-design-aws':        { title:'System Design on AWS',                  author:'Kumar, Singh',          track:'ref',    pages:612  },
+  'talent-code':              { title:'The Talent Code',                       author:'Daniel Coyle',          track:'speech', pages:296  },
+  'thinking-fast-slow':       { title:'Thinking, Fast and Slow',               author:'Daniel Kahneman',       track:'speech', pages:491  },
+  'coded':                    { title:'CODED: When AI Becomes the Developer',  author:'Sterling Morrison',     track:'speech', pages:47   },
+  'effective-se':             { title:'The Effective Software Engineer',       author:'Addy Osmani',           track:'speech', pages:268  },
+  'investing-programmers':    { title:'Investing for Programmers',             author:'Stefan Papp',           track:'speech', pages:370  },
+  'fullstack-js':             { title:'Full Stack JavaScript Strategies',      author:'Milecia McGregor',      track:'speech', pages:480  },
+  'mastering-claude':         { title:'Mastering Claude AI',                   author:'Ryan Dickey',           track:'speech', pages:401  },
+  'genai-sw-dev':             { title:'Generative AI for Software Development',author:'Sergio Pereira',        track:'speech', pages:171  },
+  'arch-as-code':             { title:'Architecture as Code',                  author:'Ford, Richards',        track:'speech', pages:95   },
+};
+
+const COURSES = {
+  'aws-ccp':        { title:'AWS CCP CLF-C02',               totalMinutes:870,  initialMinutes:66  },
+  'llm-engineering':{ title:'LLM Engineering: Master AI',    totalMinutes:2010, initialMinutes:612 },
+  'data-science':   { title:'Complete Data Science Bootcamp',totalMinutes:1920, initialMinutes:156 },
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────────────────────────────
+
+const STORAGE_KEY   = 'rp_state_v1';
+const GH_CONFIG_KEY = 'rp_github_config';
+
+function defaultState() {
+  const progress = {};
+  for (const id of Object.keys(BOOKS)) {
+    progress[id] = { pagesRead: 0, started: null, finished: null };
+  }
+  const courseProgress = {};
+  for (const [id, c] of Object.entries(COURSES)) {
+    courseProgress[id] = { minutesWatched: c.initialMinutes };
+  }
+  return {
+    progress,
+    courseProgress,
+    dailyLog: {},
+    streak: { lastLogDate: null, count: 0 },
+  };
+}
+
+function loadLocalState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState();
+    const s = JSON.parse(raw);
+    const def = defaultState();
+    for (const id of Object.keys(def.progress)) {
+      if (!s.progress[id]) s.progress[id] = def.progress[id];
+    }
+    for (const id of Object.keys(def.courseProgress)) {
+      if (!s.courseProgress[id]) s.courseProgress[id] = def.courseProgress[id];
+    }
+    return s;
+  } catch { return defaultState(); }
+}
+
+function mergeState(remote) {
+  const def = defaultState();
+  for (const id of Object.keys(def.progress)) {
+    if (!remote.progress[id]) remote.progress[id] = def.progress[id];
+  }
+  for (const id of Object.keys(def.courseProgress)) {
+    if (!remote.courseProgress[id]) remote.courseProgress[id] = def.courseProgress[id];
+  }
+  return remote;
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  schedulePush();
+}
+
+let state = defaultState();
+
+// ─────────────────────────────────────────────────────────────────────
+//  GITHUB SYNC
+// ─────────────────────────────────────────────────────────────────────
+
+let ghConfig  = null;
+let fileSha   = null;
+let syncTimer = null;
+let syncState = 'idle';
+
+function loadGhConfig() {
+  try {
+    const raw = localStorage.getItem(GH_CONFIG_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function ghHeaders() {
+  return {
+    'Authorization': `Bearer ${ghConfig.token}`,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  };
+}
+
+function setSyncStatus(s) {
+  syncState = s;
+  const badge = document.getElementById('sync-badge');
+  if (!badge) return;
+  badge.className = 'sync-badge' + (s !== 'idle' ? ' ' + s : '');
+  const labels = {
+    idle:   'Synced to GitHub',
+    saving: 'Saving to GitHub…',
+    saved:  'Saved to GitHub',
+    error:  'Sync error — click to retry',
+    none:   'GitHub sync not configured — click to set up',
+  };
+  badge.title = labels[s] || '';
+}
+
+function syncBadgeClick() {
+  if (syncState === 'error') schedulePush();
+  else openSettings();
+}
+
+function schedulePush() {
+  if (!ghConfig) return;
+  clearTimeout(syncTimer);
+  setSyncStatus('saving');
+  syncTimer = setTimeout(pushToGitHub, 1500);
+}
+
+async function pushToGitHub() {
+  if (!ghConfig) return;
+  try {
+    const encoded = btoa(JSON.stringify(state, null, 2));
+    const body = {
+      message: `Update reading progress ${todayStr()}`,
+      content: encoded,
+    };
+    if (fileSha) body.sha = fileSha;
+
+    const res = await fetch(
+      `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/state.json`,
+      { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) }
+    );
+
+    if (res.status === 409) {
+      // SHA conflict — refetch SHA and retry
+      await fetchFromGitHub();
+      schedulePush();
+      return;
+    }
+    if (!res.ok) throw new Error(`${res.status}`);
+
+    const data = await res.json();
+    fileSha = data.content.sha;
+    setSyncStatus('saved');
+    setTimeout(() => setSyncStatus('idle'), 3000);
+  } catch (e) {
+    console.error('GitHub push failed:', e);
+    setSyncStatus('error');
+  }
+}
+
+async function fetchFromGitHub() {
+  const res = await fetch(
+    `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/state.json`,
+    { headers: ghHeaders() }
+  );
+  if (res.status === 404) { fileSha = null; return null; }
+  if (!res.ok) throw new Error(`${res.status}`);
+  const data = await res.json();
+  fileSha = data.sha;
+  return JSON.parse(atob(data.content.replace(/\s/g, '')));
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  SETTINGS MODAL
+// ─────────────────────────────────────────────────────────────────────
+
+function openSettings() {
+  const modal = document.getElementById('settings-modal');
+  modal.classList.add('open');
+  if (ghConfig) {
+    document.getElementById('gh-token').value = ghConfig.token;
+    document.getElementById('gh-owner').value = ghConfig.owner;
+    document.getElementById('gh-repo').value  = ghConfig.repo;
+  }
+  document.getElementById('settings-error').textContent = '';
+}
+
+function closeSettings() {
+  document.getElementById('settings-modal').classList.remove('open');
+}
+
+async function saveSettings() {
+  const token = document.getElementById('gh-token').value.trim();
+  const owner = document.getElementById('gh-owner').value.trim();
+  const repo  = document.getElementById('gh-repo').value.trim();
+  const errEl = document.getElementById('settings-error');
+  const btn   = document.getElementById('save-settings-btn');
+
+  if (!token || !owner || !repo) { errEl.textContent = 'All fields are required.'; return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Connecting…';
+  errEl.textContent = '';
+
+  try {
+    const check = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+    if (check.status === 401 || check.status === 403) throw new Error('Invalid token or insufficient permissions.');
+    if (check.status === 404) throw new Error('Repository not found. Check the owner and repo name.');
+    if (!check.ok) throw new Error(`GitHub API error: ${check.status}`);
+
+    ghConfig = { token, owner, repo };
+    localStorage.setItem(GH_CONFIG_KEY, JSON.stringify(ghConfig));
+    closeSettings();
+
+    showLoading('Fetching your progress from GitHub…');
+    try {
+      const remote = await fetchFromGitHub();
+      if (remote) {
+        state = mergeState(remote);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } else {
+        schedulePush();
+      }
+    } catch { /* keep existing state */ }
+    hideLoading();
+    render();
+    setSyncStatus(fileSha ? 'idle' : 'saving');
+  } catch (e) {
+    errEl.textContent = e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Connect';
+  }
+}
+
+function showLoading(msg) {
+  document.getElementById('loading-text').textContent = msg || 'Loading…';
+  document.getElementById('loading-overlay').classList.add('open');
+}
+
+function hideLoading() {
+  document.getElementById('loading-overlay').classList.remove('open');
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  HELPERS
+// ─────────────────────────────────────────────────────────────────────
+
+function todayStr() {
+  return new Date().toISOString().slice(0,10);
+}
+
+function fmtDate(d) {
+  return new Date(d + 'T12:00:00').toLocaleDateString('en-US',{ weekday:'short', month:'short', day:'numeric', year:'numeric' });
+}
+
+function daysBetween(a, b) {
+  const da = new Date(a + 'T00:00:00'), db = new Date(b + 'T00:00:00');
+  return Math.round((db - da) / 86400000);
+}
+
+function getCurrentPhase() {
+  const today = todayStr();
+  for (const p of PHASES) {
+    if (today >= p.start && today <= p.end) return p;
+  }
+  if (today < PHASES[0].start) return PHASES[0];
+  return PHASES[PHASES.length - 1];
+}
+
+function pct(val, total) {
+  if (!total) return 0;
+  return Math.min(100, Math.round(val / total * 100));
+}
+
+function fmtMin(m) {
+  const h = Math.floor(m / 60), min = m % 60;
+  return h > 0 ? `${h}h ${min}m` : `${min}m`;
+}
+
+function ensureTodayLog() {
+  const t = todayStr();
+  if (!state.dailyLog[t]) state.dailyLog[t] = { books: {}, courses: {} };
+  return state.dailyLog[t];
+}
+
+function getTodayLog() {
+  return state.dailyLog[todayStr()] || { books: {}, courses: {} };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  STREAK
+// ─────────────────────────────────────────────────────────────────────
+
+function updateStreak() {
+  const today = todayStr();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().slice(0,10);
+
+  const log = getTodayLog();
+  const hasActivity = Object.values(log.books).some(v => v > 0)
+                   || Object.values(log.courses).some(v => v > 0);
+
+  if (!hasActivity) return;
+
+  if (state.streak.lastLogDate === today) return; // already updated today
+
+  if (state.streak.lastLogDate === yesterdayStr) {
+    state.streak.count++;
+  } else if (state.streak.lastLogDate !== today) {
+    state.streak.count = 1;
+  }
+  state.streak.lastLogDate = today;
+  saveState();
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  ACTIONS
+// ─────────────────────────────────────────────────────────────────────
+
+function addPages(bookId, pages) {
+  if (!pages || pages <= 0) return;
+  const book = BOOKS[bookId];
+  const p = state.progress[bookId];
+  const log = ensureTodayLog();
+
+  p.pagesRead = Math.min(book.pages, (p.pagesRead || 0) + pages);
+  if (!p.started) p.started = todayStr();
+  if (p.pagesRead >= book.pages) p.finished = todayStr();
+
+  log.books[bookId] = (log.books[bookId] || 0) + pages;
+
+  updateStreak();
+  saveState();
+  renderBookCard(bookId);
+  renderTargetsBar();
+  renderSummary();
+  renderStreak();
+}
+
+function addMinutes(courseId, minutes) {
+  if (!minutes || minutes <= 0) return;
+  const course = COURSES[courseId];
+  const cp = state.courseProgress[courseId];
+  const log = ensureTodayLog();
+
+  cp.minutesWatched = Math.min(course.totalMinutes, (cp.minutesWatched || 0) + minutes);
+  log.courses[courseId] = (log.courses[courseId] || 0) + minutes;
+
+  updateStreak();
+  saveState();
+  renderCourseCard(courseId);
+  renderTargetsBar();
+  renderSummary();
+  renderStreak();
+}
+
+function undoBook(bookId) {
+  const log = ensureTodayLog();
+  const added = log.books[bookId] || 0;
+  if (!added) return;
+  state.progress[bookId].pagesRead = Math.max(0, (state.progress[bookId].pagesRead || 0) - added);
+  if (state.progress[bookId].pagesRead === 0) state.progress[bookId].started = null;
+  state.progress[bookId].finished = null;
+  delete log.books[bookId];
+  saveState();
+  renderBookCard(bookId);
+  renderTargetsBar();
+  renderSummary();
+}
+
+function undoCourse(courseId) {
+  const log = ensureTodayLog();
+  const added = log.courses[courseId] || 0;
+  if (!added) return;
+  state.courseProgress[courseId].minutesWatched = Math.max(
+    COURSES[courseId].initialMinutes,
+    (state.courseProgress[courseId].minutesWatched || 0) - added
+  );
+  delete log.courses[courseId];
+  saveState();
+  renderCourseCard(courseId);
+  renderTargetsBar();
+  renderSummary();
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  CUSTOM INPUT
+// ─────────────────────────────────────────────────────────────────────
+
+let customMode = {}; // bookId or courseId => true
+
+function showCustom(id, type) {
+  const card = document.getElementById(`card-${id}`);
+  if (!card) return;
+  const qRow = card.querySelector('.quick-add');
+  const cRow = card.querySelector('.custom-input-wrap');
+  const inp  = card.querySelector('.custom-inp');
+  qRow.style.display = 'none';
+  cRow.classList.add('open');
+  inp.value = '';
+  inp.focus();
+  inp.onkeydown = (e) => {
+    if (e.key === 'Enter') confirmCustom(id, type);
+    if (e.key === 'Escape') cancelCustom(id);
+  };
+}
+
+function cancelCustom(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (!card) return;
+  card.querySelector('.quick-add').style.display = 'flex';
+  card.querySelector('.custom-input-wrap').classList.remove('open');
+}
+
+function confirmCustom(id, type) {
+  const card = document.getElementById(`card-${id}`);
+  if (!card) return;
+  const val = parseInt(card.querySelector('.custom-inp').value, 10);
+  if (isNaN(val) || val <= 0) { cancelCustom(id); return; }
+  cancelCustom(id);
+  if (type === 'book') addPages(id, val);
+  else addMinutes(id, val);
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER: HEADER / PHASE
+// ─────────────────────────────────────────────────────────────────────
+
+function renderHeader() {
+  document.getElementById('date-display').textContent =
+    new Date().toLocaleDateString('en-US',{ weekday:'short', month:'short', day:'numeric' });
+}
+
+function renderStreak() {
+  document.getElementById('streak-count').textContent = state.streak.count;
+}
+
+function renderPhase() {
+  const phase = getCurrentPhase();
+  const today = todayStr();
+  const dayNum = daysBetween(phase.start, today) + 1;
+  const totalDays = daysBetween(phase.start, phase.end) + 1;
+  const progress = Math.min(100, Math.round(dayNum / totalDays * 100));
+
+  document.getElementById('phase-name').textContent = phase.name;
+  document.getElementById('phase-meta').textContent =
+    fmtDate(phase.start) + ' – ' + fmtDate(phase.end);
+  document.getElementById('phase-day-label').textContent =
+    `Day ${Math.max(1,dayNum)} of ${totalDays}`;
+  document.getElementById('phase-progress-fill').style.width = progress + '%';
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER: TARGETS BAR
+// ─────────────────────────────────────────────────────────────────────
+
+function renderTargetsBar() {
+  const phase = getCurrentPhase();
+  const log = getTodayLog();
+  const bar = document.getElementById('targets-bar');
+
+  // calculate today's totals per track
+  const readToday   = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'read').reduce((s,[,v])=>s+v,0);
+  const speechToday = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'speech').reduce((s,[,v])=>s+v,0);
+  const refToday    = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'ref').reduce((s,[,v])=>s+v,0);
+  const udeyToday   = Object.values(log.courses).reduce((s,v)=>s+v,0);
+
+  const pills = [
+    { cls:'read',   label:'📖 Read',       today:readToday,   target:phase.targets.read,   unit:'p'   },
+    { cls:'speech', label:'🎧 Speechify',   today:speechToday, target:phase.targets.speech, unit:'p'   },
+    { cls:'ref',    label:'📚 Reference',   today:refToday,    target:phase.targets.ref,    unit:'p'   },
+    { cls:'udemy',  label:'🎓 Udemy',       today:udeyToday,   target:phase.targets.udemy,  unit:'min' },
+  ].filter(p => p.target > 0);
+
+  bar.innerHTML = pills.map(p => {
+    const met = p.today >= p.target;
+    return `<div class="target-pill ${p.cls}${met?' met':''}">
+      ${p.label} <span class="target-today">${p.today}/${p.target}${p.unit}</span>
+      <span class="check">✓</span>
+    </div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER: BOOK CARD
+// ─────────────────────────────────────────────────────────────────────
+
+const trackMeta = {
+  read:   { cls:'read',   label:'📖 Read'       },
+  speech: { cls:'speech', label:'🎧 Speechify'   },
+  ref:    { cls:'ref',    label:'📚 Reference'   },
+};
+
+function buildBookCard(bookId) {
+  const book = BOOKS[bookId];
+  const tm = trackMeta[book.track];
+  const div = document.createElement('div');
+  div.className = `book-card ${tm.cls}`;
+  div.id = `card-${bookId}`;
+
+  div.innerHTML = `
+    <div class="card-top">
+      <span class="track-badge ${tm.cls}">${tm.label}</span>
+      <span class="today-badge" id="tb-${bookId}"></span>
+    </div>
+    <div>
+      <div class="card-title">${book.title}</div>
+      <div class="card-author">${book.author}</div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-track"><div class="progress-fill" id="pf-${bookId}" style="width:0%"></div></div>
+      <div class="progress-stats">
+        <span class="current" id="pc-${bookId}">0</span>
+        <span style="color:var(--text-dim)">/</span>
+        <span>${book.pages}</span>
+        <span style="color:var(--text-dim)">p</span>
+        <span class="pct" id="pp-${bookId}">0%</span>
+      </div>
+    </div>
+    <div class="quick-add" style="display:flex">
+      <button class="qa-btn" onclick="addPages('${bookId}',5)">+5</button>
+      <button class="qa-btn" onclick="addPages('${bookId}',10)">+10</button>
+      <button class="qa-btn" onclick="addPages('${bookId}',25)">+25</button>
+      <button class="qa-btn custom-btn" onclick="showCustom('${bookId}','book')" title="Custom amount">···</button>
+      <button class="qa-btn undo-btn" id="undo-${bookId}" onclick="undoBook('${bookId}')" title="Undo today's log">↩</button>
+    </div>
+    <div class="custom-input-wrap">
+      <input class="custom-inp" type="number" min="1" max="9999" placeholder="pages">
+      <button class="confirm-btn" onclick="confirmCustom('${bookId}','book')">Add</button>
+      <button class="cancel-btn" onclick="cancelCustom('${bookId}')">✕</button>
+    </div>`;
+  return div;
+}
+
+function renderBookCard(bookId) {
+  const p = state.progress[bookId];
+  const book = BOOKS[bookId];
+  const log = getTodayLog();
+  const todayAdded = log.books[bookId] || 0;
+  const percent = pct(p.pagesRead, book.pages);
+  const done = p.pagesRead >= book.pages;
+
+  const pf   = document.getElementById(`pf-${bookId}`);
+  const pc   = document.getElementById(`pc-${bookId}`);
+  const pp   = document.getElementById(`pp-${bookId}`);
+  const tb   = document.getElementById(`tb-${bookId}`);
+  const undo = document.getElementById(`undo-${bookId}`);
+  const card = document.getElementById(`card-${bookId}`);
+
+  if (!pf) return;
+
+  pf.style.width = percent + '%';
+  pc.textContent = p.pagesRead;
+  pp.textContent = percent + '%';
+  tb.textContent = todayAdded ? `+${todayAdded}p` : '';
+  tb.className   = 'today-badge' + (todayAdded ? ' visible' : '');
+  undo.className = 'qa-btn undo-btn' + (todayAdded ? ' visible' : '');
+  card.className = `book-card ${trackMeta[book.track].cls}${done?' done':''}`;
+
+  // pop animation
+  pc.classList.remove('popping');
+  void pc.offsetWidth;
+  if (todayAdded) pc.classList.add('popping');
+}
+
+function renderAllBookCards() {
+  const phase = getCurrentPhase();
+  const grid = document.getElementById('books-grid');
+  grid.innerHTML = '';
+
+  const activeBooks = [...phase.readBooks, ...phase.speechifyBooks, ...phase.referenceBooks];
+  // Also add in-progress books from other phases
+  for (const [id, p] of Object.entries(state.progress)) {
+    if (p.pagesRead > 0 && !p.finished && !activeBooks.includes(id)) {
+      activeBooks.push(id);
+    }
+  }
+
+  for (const id of activeBooks) {
+    grid.appendChild(buildBookCard(id));
+    renderBookCard(id);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER: COURSE CARD
+// ─────────────────────────────────────────────────────────────────────
+
+function buildCourseCard(courseId) {
+  const course = COURSES[courseId];
+  const div = document.createElement('div');
+  div.className = 'book-card udemy';
+  div.id = `card-${courseId}`;
+
+  div.innerHTML = `
+    <div class="card-top">
+      <span class="track-badge udemy">🎓 Udemy</span>
+      <span class="today-badge" id="tb-${courseId}"></span>
+    </div>
+    <div>
+      <div class="card-title">${course.title}</div>
+      <div class="card-author">${fmtMin(course.totalMinutes)} total</div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-track"><div class="progress-fill" id="pf-${courseId}" style="width:0%"></div></div>
+      <div class="progress-stats">
+        <span class="current" id="pc-${courseId}">0</span>
+        <span style="color:var(--text-dim)">/ ${fmtMin(course.totalMinutes)}</span>
+        <span class="pct" id="pp-${courseId}">0%</span>
+      </div>
+    </div>
+    <div class="quick-add" style="display:flex">
+      <button class="qa-btn" onclick="addMinutes('${courseId}',10)">+10m</button>
+      <button class="qa-btn" onclick="addMinutes('${courseId}',20)">+20m</button>
+      <button class="qa-btn" onclick="addMinutes('${courseId}',30)">+30m</button>
+      <button class="qa-btn custom-btn" onclick="showCustom('${courseId}','course')" title="Custom time">···</button>
+      <button class="qa-btn undo-btn" id="undo-${courseId}" onclick="undoCourse('${courseId}')" title="Undo today">↩</button>
+    </div>
+    <div class="custom-input-wrap">
+      <input class="custom-inp" type="number" min="1" max="999" placeholder="minutes">
+      <button class="confirm-btn" onclick="confirmCustom('${courseId}','course')">Add</button>
+      <button class="cancel-btn" onclick="cancelCustom('${courseId}')">✕</button>
+    </div>`;
+  return div;
+}
+
+function renderCourseCard(courseId) {
+  const cp = state.courseProgress[courseId];
+  const course = COURSES[courseId];
+  const log = getTodayLog();
+  const todayAdded = log.courses[courseId] || 0;
+  const percent = pct(cp.minutesWatched, course.totalMinutes);
+  const done = cp.minutesWatched >= course.totalMinutes;
+
+  const pf   = document.getElementById(`pf-${courseId}`);
+  const pc   = document.getElementById(`pc-${courseId}`);
+  const pp   = document.getElementById(`pp-${courseId}`);
+  const tb   = document.getElementById(`tb-${courseId}`);
+  const undo = document.getElementById(`undo-${courseId}`);
+  const card = document.getElementById(`card-${courseId}`);
+
+  if (!pf) return;
+
+  pf.style.width = percent + '%';
+  pc.textContent = fmtMin(cp.minutesWatched);
+  pp.textContent = percent + '%';
+  tb.textContent = todayAdded ? `+${todayAdded}m` : '';
+  tb.className   = 'today-badge' + (todayAdded ? ' visible' : '');
+  undo.className = 'qa-btn undo-btn' + (todayAdded ? ' visible' : '');
+  card.className = `book-card udemy${done?' done':''}`;
+}
+
+function renderAllCourseCards() {
+  const phase = getCurrentPhase();
+  const grid = document.getElementById('courses-grid');
+  grid.innerHTML = '';
+  for (const id of phase.courses) {
+    grid.appendChild(buildCourseCard(id));
+    renderCourseCard(id);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER: DAILY SUMMARY
+// ─────────────────────────────────────────────────────────────────────
+
+function renderSummary() {
+  const phase = getCurrentPhase();
+  const log = getTodayLog();
+  const card = document.getElementById('summary-card');
+
+  const readToday   = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'read').reduce((s,[,v])=>s+v,0);
+  const speechToday = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'speech').reduce((s,[,v])=>s+v,0);
+  const refToday    = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'ref').reduce((s,[,v])=>s+v,0);
+  const udeyToday   = Object.values(log.courses).reduce((s,v)=>s+v,0);
+
+  const rows = [
+    { cls:'read',  label:'📖 Read',     today:readToday,   target:phase.targets.read,   unit:'p'   },
+    { cls:'speech',label:'🎧 Speech',   today:speechToday, target:phase.targets.speech, unit:'p'   },
+    { cls:'ref',   label:'📚 Ref',      today:refToday,    target:phase.targets.ref,    unit:'p'   },
+    { cls:'udemy', label:'🎓 Udemy',    today:udeyToday,   target:phase.targets.udemy,  unit:'min' },
+  ].filter(r => r.target > 0);
+
+  card.innerHTML = rows.map(r => {
+    const fillPct = r.target ? Math.min(100, r.today / r.target * 100) : 0;
+    const numClass = r.today === 0 ? 'zero' : r.today >= r.target ? (r.today > r.target ? 'over' : 'done') : '';
+    const display = r.unit === 'min' ? fmtMin(r.today) + ' / ' + fmtMin(r.target) : `${r.today} / ${r.target}${r.unit}`;
+    return `<div class="summary-row ${r.cls}">
+      <div class="summary-label ${r.cls}">${r.label}</div>
+      <div class="summary-bar-wrap"><div class="summary-bar-fill" style="width:${fillPct}%"></div></div>
+      <div class="summary-nums"><span class="${numClass}">${display}</span></div>
+    </div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER: HISTORY
+// ─────────────────────────────────────────────────────────────────────
+
+function toggleHistory() {
+  const panel = document.getElementById('history-panel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) renderHistory();
+}
+
+function renderHistory() {
+  const panel = document.getElementById('history-panel');
+  const dates = Object.keys(state.dailyLog).sort().reverse().slice(0, 14);
+
+  if (!dates.length) {
+    panel.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:12px;font-family:JetBrains Mono,monospace;">No history yet.</div>';
+    return;
+  }
+
+  const header = `<div class="history-row header">
+    <span>Date</span><span>📖 Read</span><span>🎧 Speech</span><span class="ref-col">📚 Ref</span><span class="udemy-col">🎓 Udemy</span>
+  </div>`;
+
+  const rows = dates.map(date => {
+    const log = state.dailyLog[date] || { books: {}, courses: {} };
+    const r  = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'read').reduce((s,[,v])=>s+v,0);
+    const sp = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'speech').reduce((s,[,v])=>s+v,0);
+    const rf = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'ref').reduce((s,[,v])=>s+v,0);
+    const ud = Object.values(log.courses).reduce((s,v)=>s+v,0);
+    const isToday = date === todayStr();
+    return `<div class="history-row">
+      <span class="date-col">${isToday?'Today':date.slice(5)}</span>
+      <span class="history-val">${r ? r+'p' : '—'}</span>
+      <span class="history-val">${sp ? sp+'p' : '—'}</span>
+      <span class="history-val ref-col">${rf ? rf+'p' : '—'}</span>
+      <span class="history-val udemy-col">${ud ? fmtMin(ud) : '—'}</span>
+    </div>`;
+  }).join('');
+
+  panel.innerHTML = header + rows;
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────────────────────────────
+
+function render() {
+  renderHeader();
+  renderStreak();
+  renderPhase();
+  renderTargetsBar();
+  renderAllBookCards();
+  renderAllCourseCards();
+  renderSummary();
+}
+
+async function initApp() {
+  ghConfig = loadGhConfig();
+
+  if (!ghConfig) {
+    state = loadLocalState();
+    render();
+    setSyncStatus('none');
+    openSettings();
+    return;
+  }
+
+  showLoading('Loading from GitHub…');
+  try {
+    const remote = await fetchFromGitHub();
+    state = remote ? mergeState(remote) : loadLocalState();
+    if (!remote) schedulePush();
+  } catch {
+    state = loadLocalState();
+    setSyncStatus('error');
+  }
+  hideLoading();
+  render();
+  if (syncState !== 'error') setSyncStatus('idle');
+}
+
+initApp();
+
+// refresh header clock every minute
+setInterval(() => {
+  renderHeader();
+  renderPhase();
+  renderTargetsBar();
+  renderSummary();
+}, 60000);
+</script>
+</body>
+</html>
