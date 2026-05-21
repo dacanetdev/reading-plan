@@ -663,6 +663,56 @@ header {
 }
 .btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
 
+/* ── PHASE NAVIGATION ── */
+.phase-nav-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 11px;
+  width: 28px; height: 28px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.phase-nav-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.phase-nav-btn:disabled { opacity: 0.25; cursor: default; }
+.phase-back-btn {
+  display: none;
+  background: var(--accent-dim);
+  border: 1px solid rgba(212,148,40,0.3);
+  border-radius: 6px;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-items: center;
+}
+.phase-back-btn:hover { background: rgba(212,148,40,0.2); }
+.phase-back-btn.visible { display: flex; }
+.carryover-from {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid rgba(212,148,40,0.2);
+  display: inline-block;
+  margin-top: 4px;
+}
+
 /* ── LOADING OVERLAY ── */
 .loading-overlay {
   display: none; position: fixed; inset: 0;
@@ -698,6 +748,7 @@ header {
 </header>
 
 <div class="phase-banner">
+  <button class="phase-nav-btn" id="phase-prev" onclick="navigatePhase(-1)" title="Previous phase" disabled>◀</button>
   <div class="phase-info">
     <h2 id="phase-name">—</h2>
     <div class="phase-meta" id="phase-meta">—</div>
@@ -708,16 +759,26 @@ header {
       <div class="phase-progress-fill" id="phase-progress-fill" style="width:0%"></div>
     </div>
   </div>
+  <button class="phase-back-btn" id="phase-back-btn" onclick="goToCurrentPhase()" title="Return to current phase">↩ Current</button>
+  <button class="phase-nav-btn" id="phase-next" onclick="navigatePhase(1)" title="Next phase">▶</button>
 </div>
 
 <div class="targets-bar" id="targets-bar"></div>
 
 <div class="section">
   <div class="section-header">
-    <div class="section-title">Active Books</div>
+    <div class="section-title" id="books-section-title">Active Books</div>
     <div class="section-line"></div>
   </div>
   <div class="cards-grid" id="books-grid"></div>
+</div>
+
+<div class="section" id="carryover-section" style="display:none">
+  <div class="section-header">
+    <div class="section-title">Carried Over</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid" id="carryover-grid"></div>
 </div>
 
 <div class="section" id="courses-section">
@@ -942,6 +1003,7 @@ function saveState() {
 }
 
 let state = defaultState();
+let viewedPhaseIdx = -1; // -1 = auto (follows current phase)
 
 // ─────────────────────────────────────────────────────────────────────
 //  GITHUB SYNC
@@ -1144,6 +1206,36 @@ function getCurrentPhase() {
   return PHASES[PHASES.length - 1];
 }
 
+function getViewedPhaseIdx() {
+  if (viewedPhaseIdx >= 0) return viewedPhaseIdx;
+  return PHASES.indexOf(getCurrentPhase());
+}
+
+function getViewedPhase() {
+  return PHASES[getViewedPhaseIdx()];
+}
+
+function isViewingCurrentPhase() {
+  return getViewedPhaseIdx() === PHASES.indexOf(getCurrentPhase());
+}
+
+function navigatePhase(dir) {
+  viewedPhaseIdx = Math.max(0, Math.min(PHASES.length - 1, getViewedPhaseIdx() + dir));
+  refreshViewedPhase();
+}
+
+function goToCurrentPhase() {
+  viewedPhaseIdx = -1;
+  refreshViewedPhase();
+}
+
+function refreshViewedPhase() {
+  renderPhase();
+  renderTargetsBar();
+  renderAllBookCards();
+  renderAllCourseCards();
+}
+
 function pct(val, total) {
   if (!total) return 0;
   return Math.min(100, Math.round(val / total * 100));
@@ -1209,7 +1301,11 @@ function addPages(bookId, pages) {
 
   updateStreak();
   saveState();
-  renderBookCard(bookId);
+  if (p.finished) {
+    renderAllBookCards(); // remove from carryover if just completed
+  } else {
+    renderBookCard(bookId);
+  }
   renderTargetsBar();
   renderSummary();
   renderStreak();
@@ -1236,12 +1332,17 @@ function undoBook(bookId) {
   const log = ensureTodayLog();
   const added = log.books[bookId] || 0;
   if (!added) return;
+  const wasFinished = !!state.progress[bookId].finished;
   state.progress[bookId].pagesRead = Math.max(0, (state.progress[bookId].pagesRead || 0) - added);
   if (state.progress[bookId].pagesRead === 0) state.progress[bookId].started = null;
   state.progress[bookId].finished = null;
   delete log.books[bookId];
   saveState();
-  renderBookCard(bookId);
+  if (wasFinished) {
+    renderAllBookCards(); // book may reappear in carryover
+  } else {
+    renderBookCard(bookId);
+  }
   renderTargetsBar();
   renderSummary();
 }
@@ -1314,18 +1415,39 @@ function renderStreak() {
 }
 
 function renderPhase() {
-  const phase = getCurrentPhase();
+  const phase = getViewedPhase();
+  const viewedIdx = getViewedPhaseIdx();
+  const currentIdx = PHASES.indexOf(getCurrentPhase());
+  const isCurrent = viewedIdx === currentIdx;
   const today = todayStr();
-  const dayNum = daysBetween(phase.start, today) + 1;
   const totalDays = daysBetween(phase.start, phase.end) + 1;
-  const progress = Math.min(100, Math.round(dayNum / totalDays * 100));
+
+  let dayNum, progress;
+  if (isCurrent) {
+    dayNum = daysBetween(phase.start, today) + 1;
+    progress = Math.min(100, Math.round(dayNum / totalDays * 100));
+  } else if (viewedIdx < currentIdx) {
+    dayNum = totalDays;
+    progress = 100;
+  } else {
+    dayNum = 0;
+    progress = 0;
+  }
 
   document.getElementById('phase-name').textContent = phase.name;
   document.getElementById('phase-meta').textContent =
     fmtDate(phase.start) + ' – ' + fmtDate(phase.end);
-  document.getElementById('phase-day-label').textContent =
-    `Day ${Math.max(1,dayNum)} of ${totalDays}`;
+  document.getElementById('phase-day-label').textContent = isCurrent
+    ? `Day ${Math.max(1,dayNum)} of ${totalDays}`
+    : viewedIdx < currentIdx ? `Completed · ${totalDays}d` : `Upcoming · ${totalDays}d`;
   document.getElementById('phase-progress-fill').style.width = progress + '%';
+
+  const prevBtn = document.getElementById('phase-prev');
+  const nextBtn = document.getElementById('phase-next');
+  const backBtn = document.getElementById('phase-back-btn');
+  if (prevBtn) prevBtn.disabled = viewedIdx === 0;
+  if (nextBtn) nextBtn.disabled = viewedIdx === PHASES.length - 1;
+  if (backBtn) backBtn.classList.toggle('visible', !isCurrent);
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -1333,9 +1455,10 @@ function renderPhase() {
 // ─────────────────────────────────────────────────────────────────────
 
 function renderTargetsBar() {
+  const bar = document.getElementById('targets-bar');
+  if (!isViewingCurrentPhase()) { bar.innerHTML = ''; return; }
   const phase = getCurrentPhase();
   const log = getTodayLog();
-  const bar = document.getElementById('targets-bar');
 
   // calculate today's totals per track
   const readToday   = Object.entries(log.books).filter(([id]) => BOOKS[id]?.track === 'read').reduce((s,[,v])=>s+v,0);
@@ -1369,7 +1492,7 @@ const trackMeta = {
   ref:    { cls:'ref',    label:'📚 Reference'   },
 };
 
-function buildBookCard(bookId) {
+function buildBookCard(bookId, opts = {}) {
   const book = BOOKS[bookId];
   const tm = trackMeta[book.track];
   const div = document.createElement('div');
@@ -1384,6 +1507,7 @@ function buildBookCard(bookId) {
     <div>
       <div class="card-title">${book.title}</div>
       <div class="card-author">${book.author}</div>
+      ${opts.fromPhase ? `<span class="carryover-from">From ${opts.fromPhase}</span>` : ''}
     </div>
     <div class="progress-section">
       <div class="progress-track"><div class="progress-fill" id="pf-${bookId}" style="width:0%"></div></div>
@@ -1442,21 +1566,50 @@ function renderBookCard(bookId) {
 }
 
 function renderAllBookCards() {
-  const phase = getCurrentPhase();
+  const phase = getViewedPhase();
+  const currentPhase = getCurrentPhase();
+  const isCurrent = isViewingCurrentPhase();
   const grid = document.getElementById('books-grid');
   grid.innerHTML = '';
 
-  const activeBooks = [...phase.readBooks, ...phase.speechifyBooks, ...phase.referenceBooks];
-  // Also add in-progress books from other phases
-  for (const [id, p] of Object.entries(state.progress)) {
-    if (p.pagesRead > 0 && !p.finished && !activeBooks.includes(id)) {
-      activeBooks.push(id);
-    }
-  }
+  const titleEl = document.getElementById('books-section-title');
+  if (titleEl) titleEl.textContent = isCurrent ? 'Active Books' : 'Books';
 
-  for (const id of activeBooks) {
+  const phaseBooks = [...phase.readBooks, ...phase.speechifyBooks, ...phase.referenceBooks];
+  for (const id of phaseBooks) {
     grid.appendChild(buildBookCard(id));
     renderBookCard(id);
+  }
+
+  // Carryover: unfinished books from all past phases not already in current phase
+  const carryoverSection = document.getElementById('carryover-section');
+  const carryoverGrid    = document.getElementById('carryover-grid');
+
+  if (isCurrent && carryoverSection && carryoverGrid) {
+    const currentIdx = PHASES.indexOf(currentPhase);
+    const seen = new Set(phaseBooks);
+    const carryovers = [];
+    for (let i = 0; i < currentIdx; i++) {
+      const p = PHASES[i];
+      for (const id of [...p.readBooks, ...p.speechifyBooks, ...p.referenceBooks]) {
+        if (!seen.has(id) && !state.progress[id]?.finished) {
+          seen.add(id);
+          carryovers.push({ id, fromPhase: `Phase ${p.number}` });
+        }
+      }
+    }
+    if (carryovers.length > 0) {
+      carryoverSection.style.display = '';
+      carryoverGrid.innerHTML = '';
+      for (const { id, fromPhase } of carryovers) {
+        carryoverGrid.appendChild(buildBookCard(id, { fromPhase }));
+        renderBookCard(id);
+      }
+    } else {
+      carryoverSection.style.display = 'none';
+    }
+  } else if (carryoverSection) {
+    carryoverSection.style.display = 'none';
   }
 }
 
@@ -1529,7 +1682,7 @@ function renderCourseCard(courseId) {
 }
 
 function renderAllCourseCards() {
-  const phase = getCurrentPhase();
+  const phase = getViewedPhase();
   const grid = document.getElementById('courses-grid');
   grid.innerHTML = '';
   for (const id of phase.courses) {
