@@ -1,7 +1,7 @@
 {
   "progress": {
     "python-made-easy": {
-      "pagesRead": 108,
+      "pagesRead": 112,
       "started": "2026-05-21",
       "finished": null
     },
@@ -163,10 +163,16 @@
         "aws-ccp": 239,
         "llm-engineering": 480
       }
+    },
+    "2026-05-22": {
+      "books": {
+        "python-made-easy": 4
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-05-21",
-    "count": 1
+    "lastLogDate": "2026-05-22",
+    "count": 2
   }
 }
