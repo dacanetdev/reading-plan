@@ -143,7 +143,7 @@
   },
   "courseProgress": {
     "aws-ccp": {
-      "minutesWatched": 305
+      "minutesWatched": 335
     },
     "llm-engineering": {
       "minutesWatched": 1092
@@ -169,10 +169,16 @@
         "python-made-easy": 4
       },
       "courses": {}
+    },
+    "2026-05-25": {
+      "books": {},
+      "courses": {
+        "aws-ccp": 30
+      }
     }
   },
   "streak": {
-    "lastLogDate": "2026-05-22",
-    "count": 2
+    "lastLogDate": "2026-05-25",
+    "count": 1
   }
 }
