@@ -81,8 +81,8 @@
       "finished": null
     },
     "csharp14-dotnet10": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 35,
+      "started": "2026-05-26",
       "finished": null
     },
     "realworld-web-dotnet": {
@@ -182,7 +182,8 @@
         "csharp-concurrency": 34,
         "thinking-fast-slow": 64,
         "python-made-easy": 2,
-        "microservices-dotnet": 33
+        "microservices-dotnet": 33,
+        "csharp14-dotnet10": 35
       },
       "courses": {}
     }
