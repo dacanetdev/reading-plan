@@ -6,9 +6,9 @@
       "finished": "2026-05-26"
     },
     "python-practice-lab": {
-      "pagesRead": 0,
-      "started": null,
-      "finished": null
+      "pagesRead": 161,
+      "started": "2026-05-26",
+      "finished": "2026-05-26"
     },
     "python-workout": {
       "pagesRead": 0,
@@ -182,7 +182,8 @@
         "csharp-concurrency": 34,
         "thinking-fast-slow": 64,
         "python-made-easy": 27,
-        "microservices-dotnet": 33
+        "microservices-dotnet": 33,
+        "python-practice-lab": 161
       },
       "courses": {}
     }
