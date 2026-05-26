@@ -101,7 +101,7 @@
       "finished": "2026-05-21"
     },
     "thinking-fast-slow": {
-      "pagesRead": 60,
+      "pagesRead": 64,
       "started": "2026-05-26",
       "finished": null
     },
@@ -180,7 +180,7 @@
     "2026-05-26": {
       "books": {
         "csharp-concurrency": 34,
-        "thinking-fast-slow": 60
+        "thinking-fast-slow": 64
       },
       "courses": {}
     }
