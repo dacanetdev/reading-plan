@@ -1,9 +1,9 @@
 {
   "progress": {
     "python-made-easy": {
-      "pagesRead": 114,
+      "pagesRead": 135,
       "started": "2026-05-21",
-      "finished": null
+      "finished": "2026-05-26"
     },
     "python-practice-lab": {
       "pagesRead": 0,
@@ -81,8 +81,8 @@
       "finished": null
     },
     "csharp14-dotnet10": {
-      "pagesRead": 37,
-      "started": "2026-05-26",
+      "pagesRead": 0,
+      "started": null,
       "finished": null
     },
     "realworld-web-dotnet": {
@@ -181,9 +181,8 @@
       "books": {
         "csharp-concurrency": 34,
         "thinking-fast-slow": 64,
-        "python-made-easy": 2,
-        "microservices-dotnet": 33,
-        "csharp14-dotnet10": 37
+        "python-made-easy": 27,
+        "microservices-dotnet": 33
       },
       "courses": {}
     }
