@@ -36,8 +36,8 @@
       "finished": null
     },
     "csharp-concurrency": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 10,
+      "started": "2026-05-26",
       "finished": null
     },
     "microservices-dotnet": {
@@ -176,10 +176,16 @@
         "aws-ccp": 74,
         "llm-engineering": 80
       }
+    },
+    "2026-05-26": {
+      "books": {
+        "csharp-concurrency": 10
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-05-25",
-    "count": 1
+    "lastLogDate": "2026-05-26",
+    "count": 2
   }
 }
