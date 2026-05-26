@@ -41,8 +41,8 @@
       "finished": null
     },
     "microservices-dotnet": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 25,
+      "started": "2026-05-26",
       "finished": null
     },
     "fundamentals-swa": {
@@ -181,7 +181,8 @@
       "books": {
         "csharp-concurrency": 34,
         "thinking-fast-slow": 64,
-        "python-made-easy": 2
+        "python-made-easy": 2,
+        "microservices-dotnet": 25
       },
       "courses": {}
     }
