@@ -36,7 +36,7 @@
       "finished": null
     },
     "csharp-concurrency": {
-      "pagesRead": 30,
+      "pagesRead": 34,
       "started": "2026-05-26",
       "finished": null
     },
@@ -179,7 +179,7 @@
     },
     "2026-05-26": {
       "books": {
-        "csharp-concurrency": 30
+        "csharp-concurrency": 34
       },
       "courses": {}
     }
