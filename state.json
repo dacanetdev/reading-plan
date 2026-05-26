@@ -41,7 +41,7 @@
       "finished": null
     },
     "microservices-dotnet": {
-      "pagesRead": 30,
+      "pagesRead": 33,
       "started": "2026-05-26",
       "finished": null
     },
@@ -182,7 +182,7 @@
         "csharp-concurrency": 34,
         "thinking-fast-slow": 64,
         "python-made-easy": 2,
-        "microservices-dotnet": 30
+        "microservices-dotnet": 33
       },
       "courses": {}
     }
