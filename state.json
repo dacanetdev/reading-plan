@@ -81,7 +81,7 @@
       "finished": null
     },
     "csharp14-dotnet10": {
-      "pagesRead": 35,
+      "pagesRead": 37,
       "started": "2026-05-26",
       "finished": null
     },
@@ -183,7 +183,7 @@
         "thinking-fast-slow": 64,
         "python-made-easy": 2,
         "microservices-dotnet": 33,
-        "csharp14-dotnet10": 35
+        "csharp14-dotnet10": 37
       },
       "courses": {}
     }
