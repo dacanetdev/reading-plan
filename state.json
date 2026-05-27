@@ -36,7 +36,7 @@
       "finished": null
     },
     "csharp-concurrency": {
-      "pagesRead": 34,
+      "pagesRead": 44,
       "started": "2026-05-26",
       "finished": null
     },
@@ -186,10 +186,16 @@
         "python-practice-lab": 161
       },
       "courses": {}
+    },
+    "2026-05-27": {
+      "books": {
+        "csharp-concurrency": 10
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-05-26",
-    "count": 2
+    "lastLogDate": "2026-05-27",
+    "count": 3
   }
 }
