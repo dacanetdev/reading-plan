@@ -91,7 +91,7 @@
       "finished": null
     },
     "system-design-aws": {
-      "pagesRead": 20,
+      "pagesRead": 22,
       "started": "2026-05-27",
       "finished": null
     },
@@ -193,7 +193,7 @@
         "microservices-dotnet": 10,
         "csharp14-dotnet10": 50,
         "learning-python": 20,
-        "system-design-aws": 20
+        "system-design-aws": 22
       },
       "courses": {}
     }
