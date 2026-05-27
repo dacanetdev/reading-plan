@@ -76,8 +76,8 @@
       "finished": null
     },
     "learning-python": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 20,
+      "started": "2026-05-27",
       "finished": null
     },
     "csharp14-dotnet10": {
@@ -191,7 +191,8 @@
       "books": {
         "csharp-concurrency": 11,
         "microservices-dotnet": 10,
-        "csharp14-dotnet10": 50
+        "csharp14-dotnet10": 50,
+        "learning-python": 20
       },
       "courses": {}
     }
