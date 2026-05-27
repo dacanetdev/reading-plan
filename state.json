@@ -91,8 +91,8 @@
       "finished": null
     },
     "system-design-aws": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 20,
+      "started": "2026-05-27",
       "finished": null
     },
     "talent-code": {
@@ -192,7 +192,8 @@
         "csharp-concurrency": 11,
         "microservices-dotnet": 10,
         "csharp14-dotnet10": 50,
-        "learning-python": 20
+        "learning-python": 20,
+        "system-design-aws": 20
       },
       "courses": {}
     }
