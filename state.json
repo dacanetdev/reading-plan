@@ -81,8 +81,8 @@
       "finished": null
     },
     "csharp14-dotnet10": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 50,
+      "started": "2026-05-27",
       "finished": null
     },
     "realworld-web-dotnet": {
@@ -190,7 +190,8 @@
     "2026-05-27": {
       "books": {
         "csharp-concurrency": 11,
-        "microservices-dotnet": 10
+        "microservices-dotnet": 10,
+        "csharp14-dotnet10": 50
       },
       "courses": {}
     }
