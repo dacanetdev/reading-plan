@@ -146,7 +146,7 @@
       "minutesWatched": 435
     },
     "llm-engineering": {
-      "minutesWatched": 1293
+      "minutesWatched": 1301
     },
     "data-science": {
       "minutesWatched": 156
@@ -201,7 +201,7 @@
       "books": {},
       "courses": {
         "aws-ccp": 56,
-        "llm-engineering": 121
+        "llm-engineering": 129
       }
     }
   },
