@@ -146,7 +146,8 @@
       "minutesWatched": 435
     },
     "llm-engineering": {
-      "minutesWatched": 1301
+      "minutesWatched": 1301,
+      "lastLesson": 125
     },
     "data-science": {
       "minutesWatched": 156
