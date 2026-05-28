@@ -151,7 +151,7 @@
       "lastLesson": 125
     },
     "data-science": {
-      "minutesWatched": 206
+      "minutesWatched": 210
     }
   },
   "dailyLog": {
@@ -204,7 +204,7 @@
       "courses": {
         "aws-ccp": 70,
         "llm-engineering": 129,
-        "data-science": 50
+        "data-science": 54
       }
     }
   },
