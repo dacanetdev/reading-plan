@@ -143,7 +143,7 @@
   },
   "courseProgress": {
     "aws-ccp": {
-      "minutesWatched": 379
+      "minutesWatched": 409
     },
     "llm-engineering": {
       "minutesWatched": 1172
@@ -196,10 +196,16 @@
         "system-design-aws": 22
       },
       "courses": {}
+    },
+    "2026-05-28": {
+      "books": {},
+      "courses": {
+        "aws-ccp": 30
+      }
     }
   },
   "streak": {
-    "lastLogDate": "2026-05-27",
-    "count": 3
+    "lastLogDate": "2026-05-28",
+    "count": 4
   }
 }
