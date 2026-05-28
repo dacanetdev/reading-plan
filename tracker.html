@@ -371,6 +371,40 @@ header {
 }
 .qa-btn.undo-btn.visible { opacity: 1; }
 
+/* ── LAST LESSON BADGE ── */
+.last-lesson {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.last-lesson-label { font-weight: 600; color: var(--text-muted); }
+.last-lesson-val {
+  background: var(--surface-hi);
+  border: 1px solid var(--border-hi);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.last-lesson-val:hover { border-color: var(--accent); }
+.last-lesson-inp {
+  width: 60px;
+  background: var(--surface-hi);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 2px 6px;
+  outline: none;
+}
+
 /* ── INLINE CUSTOM INPUT ── */
 .custom-input-wrap {
   display: none;
@@ -960,7 +994,7 @@ function defaultState() {
   }
   const courseProgress = {};
   for (const [id, c] of Object.entries(COURSES)) {
-    courseProgress[id] = { minutesWatched: c.initialMinutes };
+    courseProgress[id] = { minutesWatched: c.initialMinutes, lastLesson: null };
   }
   return {
     progress,
@@ -1362,6 +1396,44 @@ function undoCourse(courseId) {
   renderSummary();
 }
 
+function showLastLessonEdit(courseId) {
+  const ll = document.getElementById(`ll-${courseId}`);
+  if (!ll) return;
+  const current = state.courseProgress[courseId].lastLesson || '';
+  ll.innerHTML = `
+    <span class="last-lesson-label">Last lesson:</span>
+    <input class="last-lesson-inp" type="number" min="1" max="9999" value="${current}" placeholder="#">
+    <button class="confirm-btn" style="padding:2px 8px;font-size:10px" onclick="confirmLastLesson('${courseId}')">✓</button>
+    <button class="cancel-btn" style="padding:2px 6px;font-size:10px" onclick="renderLastLesson('${courseId}')">✕</button>`;
+  const inp = ll.querySelector('input');
+  inp.focus();
+  inp.select();
+  inp.onkeydown = (e) => {
+    if (e.key === 'Enter') confirmLastLesson(courseId);
+    if (e.key === 'Escape') renderLastLesson(courseId);
+  };
+}
+
+function confirmLastLesson(courseId) {
+  const ll = document.getElementById(`ll-${courseId}`);
+  if (!ll) return;
+  const val = parseInt(ll.querySelector('input').value, 10);
+  if (!isNaN(val) && val > 0) {
+    state.courseProgress[courseId].lastLesson = val;
+    saveState();
+  }
+  renderLastLesson(courseId);
+}
+
+function renderLastLesson(courseId) {
+  const ll = document.getElementById(`ll-${courseId}`);
+  if (!ll) return;
+  const n = state.courseProgress[courseId].lastLesson;
+  ll.innerHTML = n
+    ? `<span class="last-lesson-label">Last lesson:</span><span class="last-lesson-val" onclick="showLastLessonEdit('${courseId}')" title="Click to edit">${n}</span>`
+    : `<span class="last-lesson-val" onclick="showLastLessonEdit('${courseId}')" title="Set last lesson">+ lesson #</span>`;
+}
+
 // ─────────────────────────────────────────────────────────────────────
 //  CUSTOM INPUT
 // ─────────────────────────────────────────────────────────────────────
@@ -1631,6 +1703,7 @@ function buildCourseCard(courseId) {
     <div>
       <div class="card-title">${course.title}</div>
       <div class="card-author">${fmtMin(course.totalMinutes)} total</div>
+      <div class="last-lesson" id="ll-${courseId}"></div>
     </div>
     <div class="progress-section">
       <div class="progress-track"><div class="progress-fill" id="pf-${courseId}" style="width:0%"></div></div>
@@ -1679,6 +1752,7 @@ function renderCourseCard(courseId) {
   tb.className   = 'today-badge' + (todayAdded ? ' visible' : '');
   undo.className = 'qa-btn undo-btn' + (todayAdded ? ' visible' : '');
   card.className = `book-card udemy${done?' done':''}`;
+  renderLastLesson(courseId);
 }
 
 function renderAllCourseCards() {
