@@ -41,7 +41,7 @@
       "finished": null
     },
     "microservices-dotnet": {
-      "pagesRead": 68,
+      "pagesRead": 73,
       "started": "2026-05-26",
       "finished": null
     },
@@ -211,7 +211,7 @@
     "2026-05-29": {
       "books": {
         "csharp-concurrency": 12,
-        "microservices-dotnet": 25
+        "microservices-dotnet": 30
       },
       "courses": {}
     }
