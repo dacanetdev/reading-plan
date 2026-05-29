@@ -36,7 +36,7 @@
       "finished": null
     },
     "csharp-concurrency": {
-      "pagesRead": 45,
+      "pagesRead": 55,
       "started": "2026-05-26",
       "finished": null
     },
@@ -207,10 +207,16 @@
         "llm-engineering": 129,
         "data-science": 54
       }
+    },
+    "2026-05-29": {
+      "books": {
+        "csharp-concurrency": 10
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-05-28",
-    "count": 4
+    "lastLogDate": "2026-05-29",
+    "count": 5
   }
 }
