@@ -147,7 +147,7 @@
       "lastLesson": 133
     },
     "llm-engineering": {
-      "minutesWatched": 1411,
+      "minutesWatched": 1414,
       "lastLesson": 125
     },
     "data-science": {
@@ -223,7 +223,7 @@
       },
       "courses": {
         "aws-ccp": 5,
-        "llm-engineering": 110
+        "llm-engineering": 113
       }
     }
   },
