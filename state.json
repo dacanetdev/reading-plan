@@ -36,7 +36,7 @@
       "finished": null
     },
     "csharp-concurrency": {
-      "pagesRead": 57,
+      "pagesRead": 67,
       "started": "2026-05-26",
       "finished": null
     },
@@ -218,7 +218,8 @@
     "2026-05-30": {
       "books": {
         "csharp14-dotnet10": 30,
-        "learning-python": 10
+        "learning-python": 10,
+        "csharp-concurrency": 10
       },
       "courses": {}
     }
