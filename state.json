@@ -81,7 +81,7 @@
       "finished": null
     },
     "csharp14-dotnet10": {
-      "pagesRead": 75,
+      "pagesRead": 80,
       "started": "2026-05-27",
       "finished": null
     },
@@ -217,7 +217,7 @@
     },
     "2026-05-30": {
       "books": {
-        "csharp14-dotnet10": 25
+        "csharp14-dotnet10": 30
       },
       "courses": {}
     }
