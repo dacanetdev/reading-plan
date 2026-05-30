@@ -143,7 +143,7 @@
   },
   "courseProgress": {
     "aws-ccp": {
-      "minutesWatched": 449,
+      "minutesWatched": 454,
       "lastLesson": 133
     },
     "llm-engineering": {
@@ -221,7 +221,9 @@
         "learning-python": 10,
         "csharp-concurrency": 10
       },
-      "courses": {}
+      "courses": {
+        "aws-ccp": 5
+      }
     }
   },
   "streak": {
