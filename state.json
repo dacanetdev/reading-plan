@@ -91,7 +91,7 @@
       "finished": null
     },
     "system-design-aws": {
-      "pagesRead": 22,
+      "pagesRead": 32,
       "started": "2026-05-27",
       "finished": null
     },
@@ -225,10 +225,16 @@
         "aws-ccp": 5,
         "llm-engineering": 113
       }
+    },
+    "2026-05-31": {
+      "books": {
+        "system-design-aws": 10
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-05-30",
-    "count": 6
+    "lastLogDate": "2026-05-31",
+    "count": 7
   }
 }
