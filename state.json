@@ -151,7 +151,7 @@
       "lastLesson": 136
     },
     "data-science": {
-      "minutesWatched": 210,
+      "minutesWatched": 220,
       "lastLesson": 47
     }
   },
@@ -230,7 +230,9 @@
       "books": {
         "system-design-aws": 16
       },
-      "courses": {}
+      "courses": {
+        "data-science": 10
+      }
     }
   },
   "streak": {
