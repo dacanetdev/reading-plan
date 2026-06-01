@@ -91,7 +91,7 @@
       "finished": null
     },
     "system-design-aws": {
-      "pagesRead": 38,
+      "pagesRead": 48,
       "started": "2026-05-27",
       "finished": null
     },
@@ -234,10 +234,16 @@
         "data-science": 27,
         "aws-ccp": 10
       }
+    },
+    "2026-06-01": {
+      "books": {
+        "system-design-aws": 10
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-05-31",
-    "count": 7
+    "lastLogDate": "2026-06-01",
+    "count": 8
   }
 }
