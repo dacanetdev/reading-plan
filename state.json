@@ -41,7 +41,7 @@
       "finished": null
     },
     "microservices-dotnet": {
-      "pagesRead": 77,
+      "pagesRead": 82,
       "started": "2026-05-26",
       "finished": null
     },
@@ -240,10 +240,16 @@
         "system-design-aws": 14
       },
       "courses": {}
+    },
+    "2026-06-02": {
+      "books": {
+        "microservices-dotnet": 5
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-06-01",
-    "count": 8
+    "lastLogDate": "2026-06-02",
+    "count": 9
   }
 }
