@@ -91,7 +91,7 @@
       "finished": null
     },
     "system-design-aws": {
-      "pagesRead": 52,
+      "pagesRead": 56,
       "started": "2026-05-27",
       "finished": null
     },
@@ -245,7 +245,8 @@
       "books": {
         "microservices-dotnet": 5,
         "thinking-fast-slow": 77,
-        "csharp14-dotnet10": 3
+        "csharp14-dotnet10": 3,
+        "system-design-aws": 4
       },
       "courses": {}
     }
