@@ -101,7 +101,7 @@
       "finished": "2026-05-21"
     },
     "thinking-fast-slow": {
-      "pagesRead": 134,
+      "pagesRead": 141,
       "started": "2026-05-26",
       "finished": null
     },
@@ -244,7 +244,7 @@
     "2026-06-02": {
       "books": {
         "microservices-dotnet": 5,
-        "thinking-fast-slow": 70
+        "thinking-fast-slow": 77
       },
       "courses": {}
     }
