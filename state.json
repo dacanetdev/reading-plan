@@ -81,7 +81,7 @@
       "finished": null
     },
     "csharp14-dotnet10": {
-      "pagesRead": 80,
+      "pagesRead": 83,
       "started": "2026-05-27",
       "finished": null
     },
@@ -244,7 +244,8 @@
     "2026-06-02": {
       "books": {
         "microservices-dotnet": 5,
-        "thinking-fast-slow": 77
+        "thinking-fast-slow": 77,
+        "csharp14-dotnet10": 3
       },
       "courses": {}
     }
