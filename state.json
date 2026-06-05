@@ -147,7 +147,7 @@
       "lastLesson": 133
     },
     "llm-engineering": {
-      "minutesWatched": 1414,
+      "minutesWatched": 1434,
       "lastLesson": 136
     },
     "data-science": {
@@ -249,10 +249,16 @@
         "system-design-aws": 4
       },
       "courses": {}
+    },
+    "2026-06-05": {
+      "books": {},
+      "courses": {
+        "llm-engineering": 20
+      }
     }
   },
   "streak": {
-    "lastLogDate": "2026-06-02",
-    "count": 9
+    "lastLogDate": "2026-06-05",
+    "count": 1
   }
 }
