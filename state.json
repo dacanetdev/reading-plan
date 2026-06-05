@@ -143,7 +143,7 @@
   },
   "courseProgress": {
     "aws-ccp": {
-      "minutesWatched": 464,
+      "minutesWatched": 474,
       "lastLesson": 133
     },
     "llm-engineering": {
@@ -253,7 +253,8 @@
     "2026-06-05": {
       "books": {},
       "courses": {
-        "llm-engineering": 44
+        "llm-engineering": 44,
+        "aws-ccp": 10
       }
     }
   },
