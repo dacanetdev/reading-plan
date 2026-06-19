@@ -147,7 +147,7 @@
       "lastLesson": 136
     },
     "llm-engineering": {
-      "minutesWatched": 1548,
+      "minutesWatched": 1578,
       "lastLesson": 154
     },
     "data-science": {
@@ -260,7 +260,7 @@
     "2026-06-19": {
       "books": {},
       "courses": {
-        "llm-engineering": 90
+        "llm-engineering": 120
       }
     }
   },
