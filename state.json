@@ -46,8 +46,8 @@
       "finished": null
     },
     "fundamentals-swa": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 30,
+      "started": "2026-06-23",
       "finished": null
     },
     "mastering-clean-arch": {
@@ -267,7 +267,8 @@
     "2026-06-23": {
       "books": {
         "mastering-clean-arch": 30,
-        "effective-se": 33
+        "effective-se": 33,
+        "fundamentals-swa": 30
       },
       "courses": {}
     }
