@@ -51,8 +51,8 @@
       "finished": null
     },
     "mastering-clean-arch": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 30,
+      "started": "2026-06-23",
       "finished": null
     },
     "building-ai-agents": {
@@ -263,10 +263,16 @@
         "llm-engineering": 154,
         "aws-ccp": 30
       }
+    },
+    "2026-06-23": {
+      "books": {
+        "mastering-clean-arch": 30
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-06-19",
+    "lastLogDate": "2026-06-23",
     "count": 1
   }
 }
