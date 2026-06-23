@@ -111,7 +111,7 @@
       "finished": "2026-05-21"
     },
     "effective-se": {
-      "pagesRead": 33,
+      "pagesRead": 48,
       "started": "2026-06-23",
       "finished": null
     },
@@ -267,7 +267,7 @@
     "2026-06-23": {
       "books": {
         "mastering-clean-arch": 30,
-        "effective-se": 33,
+        "effective-se": 48,
         "fundamentals-swa": 30
       },
       "courses": {}
