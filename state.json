@@ -11,8 +11,8 @@
       "finished": "2026-05-26"
     },
     "python-workout": {
-      "pagesRead": 0,
-      "started": null,
+      "pagesRead": 35,
+      "started": "2026-06-24",
       "finished": null
     },
     "problem-solving-python": {
@@ -271,10 +271,16 @@
         "fundamentals-swa": 30
       },
       "courses": {}
+    },
+    "2026-06-24": {
+      "books": {
+        "python-workout": 35
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-06-23",
-    "count": 1
+    "lastLogDate": "2026-06-24",
+    "count": 2
   }
 }
