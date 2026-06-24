@@ -111,7 +111,7 @@
       "finished": "2026-05-21"
     },
     "effective-se": {
-      "pagesRead": 55,
+      "pagesRead": 56,
       "started": "2026-06-23",
       "finished": null
     },
@@ -275,7 +275,7 @@
     "2026-06-24": {
       "books": {
         "python-workout": 35,
-        "effective-se": 5
+        "effective-se": 6
       },
       "courses": {}
     }
