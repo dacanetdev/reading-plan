@@ -101,7 +101,7 @@
       "finished": "2026-05-21"
     },
     "thinking-fast-slow": {
-      "pagesRead": 166,
+      "pagesRead": 141,
       "started": "2026-05-26",
       "finished": null
     },
@@ -111,7 +111,7 @@
       "finished": "2026-05-21"
     },
     "effective-se": {
-      "pagesRead": 56,
+      "pagesRead": 206,
       "started": "2026-06-23",
       "finished": null
     },
@@ -279,15 +279,15 @@
       },
       "courses": {}
     },
-    "2026-07-03": {
+    "2026-07-04": {
       "books": {
-        "thinking-fast-slow": 25
+        "effective-se": 150
       },
       "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-07-03",
+    "lastLogDate": "2026-07-04",
     "count": 1
   }
 }
