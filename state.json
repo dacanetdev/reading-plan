@@ -111,9 +111,9 @@
       "finished": "2026-05-21"
     },
     "effective-se": {
-      "pagesRead": 266,
+      "pagesRead": 268,
       "started": "2026-06-23",
-      "finished": null
+      "finished": "2026-07-04"
     },
     "investing-programmers": {
       "pagesRead": 0,
@@ -281,7 +281,7 @@
     },
     "2026-07-04": {
       "books": {
-        "effective-se": 210
+        "effective-se": 213
       },
       "courses": {}
     }
