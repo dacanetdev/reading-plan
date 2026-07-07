@@ -11,7 +11,7 @@
       "finished": "2026-05-26"
     },
     "python-workout": {
-      "pagesRead": 76,
+      "pagesRead": 35,
       "started": "2026-06-24",
       "finished": null
     },
@@ -286,9 +286,7 @@
       "courses": {}
     },
     "2026-07-07": {
-      "books": {
-        "python-workout": 41
-      },
+      "books": {},
       "courses": {}
     }
   },
