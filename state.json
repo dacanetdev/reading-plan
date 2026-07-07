@@ -11,7 +11,7 @@
       "finished": "2026-05-26"
     },
     "python-workout": {
-      "pagesRead": 35,
+      "pagesRead": 60,
       "started": "2026-06-24",
       "finished": null
     },
@@ -284,10 +284,16 @@
         "effective-se": 213
       },
       "courses": {}
+    },
+    "2026-07-07": {
+      "books": {
+        "python-workout": 25
+      },
+      "courses": {}
     }
   },
   "streak": {
-    "lastLogDate": "2026-07-04",
+    "lastLogDate": "2026-07-07",
     "count": 1
   }
 }
