@@ -91,7 +91,7 @@
       "finished": null
     },
     "system-design-aws": {
-      "pagesRead": 76,
+      "pagesRead": 86,
       "started": "2026-05-27",
       "finished": null
     },
@@ -301,7 +301,8 @@
     },
     "2026-07-12": {
       "books": {
-        "mastering-clean-arch": 39
+        "mastering-clean-arch": 39,
+        "system-design-aws": 10
       },
       "courses": {}
     }
