@@ -51,9 +51,9 @@
       "finished": null
     },
     "mastering-clean-arch": {
-      "pagesRead": 137,
+      "pagesRead": 141,
       "started": "2026-06-23",
-      "finished": null
+      "finished": "2026-07-15"
     },
     "building-ai-agents": {
       "pagesRead": 0,
@@ -308,7 +308,7 @@
     },
     "2026-07-15": {
       "books": {
-        "mastering-clean-arch": 35
+        "mastering-clean-arch": 39
       },
       "courses": {}
     }
