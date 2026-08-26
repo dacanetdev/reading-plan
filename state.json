@@ -91,7 +91,7 @@
       "finished": null
     },
     "system-design-aws": {
-      "pagesRead": 105,
+      "pagesRead": 106,
       "started": "2026-05-27",
       "finished": null
     },
@@ -314,7 +314,7 @@
     },
     "2026-08-26": {
       "books": {
-        "system-design-aws": 15
+        "system-design-aws": 16
       },
       "courses": {
         "llm-engineering": 160
