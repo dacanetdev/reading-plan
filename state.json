@@ -147,7 +147,7 @@
       "lastLesson": 142
     },
     "llm-engineering": {
-      "minutesWatched": 1858,
+      "minutesWatched": 2008,
       "lastLesson": 154
     },
     "data-science": {
@@ -311,10 +311,16 @@
         "mastering-clean-arch": 39
       },
       "courses": {}
+    },
+    "2026-08-26": {
+      "books": {},
+      "courses": {
+        "llm-engineering": 150
+      }
     }
   },
   "streak": {
-    "lastLogDate": "2026-07-15",
+    "lastLogDate": "2026-08-26",
     "count": 1
   }
 }
