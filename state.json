@@ -91,7 +91,7 @@
       "finished": null
     },
     "system-design-aws": {
-      "pagesRead": 116,
+      "pagesRead": 126,
       "started": "2026-05-27",
       "finished": null
     },
@@ -322,7 +322,7 @@
     },
     "2026-08-27": {
       "books": {
-        "system-design-aws": 10
+        "system-design-aws": 20
       },
       "courses": {}
     }
