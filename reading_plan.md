@@ -154,15 +154,14 @@
 |----------------|------:|--------------------------|------:|
 | Building Applications with AI Agents | 355 | Mastering Claude AI | 401 |
 | Advanced AI and Data Science Applications | 329 | Generative AI for Software Development | 171 |
-| Agentic Coding with Claude Code | 377 | | |
-| **Phase total** | **1,061** | | **572** |
+| **Phase total** | **684** | | **572** |
 
 📚 **Reference companion:** Real-World Web Dev with .NET 10 — **12 p/day** continued from Phase 4 (~485p in Phase 5, full book done by ~Oct 4)
 *Hands-on AI agent design at the desk, while Speechify fills in the conceptual and prompting layer. All 3 Udemy courses are running continuously from Phase 1 — by this phase the LLM Engineering and Data Science courses should be well into their second halves.*
 
 > **Bonus:** Architecture as Code (~95p) — 🎧 Speechify when Mastering Claude AI is done
 
-> **Added Sep 18:** *Agentic Coding with Claude Code* (Eden Marco, 377p) joins the desk-read list — hands-on, so it stays 📖 Read rather than Speechify. Read target rises to ~25 p/day; anything unfinished by Oct 4 carries over into Phase 6. *The AI Engineer Course 2026* (365 Careers, 445 lectures · 29 h 46 m) runs alongside the other two courses from Phase 5 to the end of Phase 7 at 20 min/day, so the Udemy budget is 60 min/day in Phase 5 and 40 min/day in Phases 6–7.
+> **Added Sep 18:** *The AI Engineer Course 2026* (365 Careers, 445 lectures · 29 h 46 m) runs alongside the other two courses from Phase 5 to the end of Phase 7 at 20 min/day, so the Udemy budget is 60 min/day in Phase 5 and 40 min/day in Phases 6–7.
 
 ---
 
@@ -172,9 +171,12 @@
 |----------------|------:|--------------------------|------:|
 | Problem Solving with Python | 433 | — | — |
 | Coding with AI Examples in Python | 338 | | |
-| **Phase total** | **771** | | **—** |
+| Agentic Coding with Claude Code | 377 | | |
+| **Phase total** | **1,148** | | **—** |
 
 📚 **Reference companion:** Learning Python — 10 p/day continued (~420p in Phase 6, now ~700p total covered)
+
+> **Added Sep 18:** *Agentic Coding with Claude Code* (Eden Marco, 377p) joins the desk-read list — hands-on, so it stays 📖 Read rather than Speechify. Read target rises to ~27 p/day for this phase.
 
 *Computational thinking and AI-assisted Python coding at the desk. All 9 Speechify books are done by this point — use commute time to revisit favourites or listen to podcasts on topics from this phase.*
 
@@ -228,8 +230,8 @@
 | 2 · .NET Core ★ | 5–10 | May 4 – Jun 14 | C# Concurrency + Microservices .NET | Thinking Fast/Slow + CODED | C# 14 & .NET 10 |
 | 3 · Architecture | 11–16 | Jun 15 – Jul 26 | Fundamentals SWA + Clean Arch | Effective SE + Investing | System Design on AWS |
 | 4 · Angular & Web ★ | 17–20 | Jul 27 – Aug 23 | Modern Angular + AI Web Apps | Full Stack JS Strategies | Real-World Web .NET 10 |
-| 5 · AI Deep Dive | 21–26 | Aug 24 – Oct 4 | AI Agents + Advanced AI/DS + Agentic Coding w/ Claude Code | Mastering Claude + GenAI | Real-World Web .NET 10 |
-| 6 · Python Applied | 27–32 | Oct 5 – Nov 15 | Problem Solving + Coding with AI | — | Learning Python |
+| 5 · AI Deep Dive | 21–26 | Aug 24 – Oct 4 | AI Agents + Advanced AI/DS | Mastering Claude + GenAI | Real-World Web .NET 10 |
+| 6 · Python Applied | 27–32 | Oct 5 – Nov 15 | Problem Solving + Coding with AI + Agentic Coding w/ Claude Code | — | Learning Python |
 | 7 · Python Advanced | 33–38 | Nov 16 – Dec 27 | Python OOP + SW Design | — | Learning Python |
 
 ---
