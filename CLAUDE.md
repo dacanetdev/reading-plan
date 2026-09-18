@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A personal reading and learning tracker — a single-file static web app (`tracker.html`) with no build step, no dependencies, and no backend. All state is persisted in browser `localStorage`.
 
-The companion file `reading_plan.md` is the master planning document (38-week, 7-phase curriculum across 28 books and 3 Udemy courses).
+The companion file `reading_plan.md` is the master planning document (38-week, 7-phase curriculum across 29 books and 4 Udemy courses).
 
 ## Running the App
 

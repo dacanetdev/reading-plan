@@ -2,7 +2,7 @@
 
 ---
 
-## Book Catalog (28 Books · ~12,387 pages)
+## Book Catalog (29 Books · ~12,764 pages)
 
 | # | Title | Author | Category | Pages | Format | Track |
 |---|-------|--------|----------|------:|--------|-------|
@@ -34,6 +34,7 @@
 | 26 | Investing for Programmers | Stefan Papp | Finance | 370 | PDF | 🎧 Speechify |
 | 27 | Thinking, Fast and Slow | Daniel Kahneman | Mindset | 491 | PDF | 🎧 Speechify |
 | 28 | The Talent Code | Daniel Coyle | Mindset | 296 | PDF | 🎧 Speechify |
+| 29 | Agentic Coding with Claude Code | Eden Marco | AI / Dev Tools | 377 | PDF | 📖 Read |
 
 > *EPUB pages are estimated from word count (~250 words/page). CODED is a short manifesto-style read (~47 est pp).*
 
@@ -43,10 +44,10 @@
 
 | Track | Best For | Items | Volume |
 |-------|----------|------:|-------|
-| 📖 **Read** (desk / focused) | Code samples, diagrams, exercises, architecture | 15 books | 5,168 p |
+| 📖 **Read** (desk / focused) | Code samples, diagrams, exercises, architecture | 16 books | 5,545 p |
 | 🎧 **Speechify** (commute / gym / walks) | Narrative, concepts, career, mindset, AI fluency | 9 books | 2,619 p |
 | 📚 **Reference** (structured companion reading) | Big textbooks — planned alongside matching phases | 4 books | 4,600 p |
-| 🎓 **Udemy Business** (desk / focused) | Video courses — hands-on demos, certifications | 1 course | 14.5 hrs |
+| 🎓 **Udemy Business** (desk / focused) | Video courses — hands-on demos, certifications | 4 courses | ~109.8 hrs |
 
 ### Why these 9 books for Speechify?
 
@@ -81,6 +82,7 @@
 | 🎓 Udemy | Ultimate AWS CCP CLF-C02 2026 | 14.5 hrs | ~13.4 hrs | 20 min/day | ~Jun 15 |
 | 🎓 Udemy | LLM Engineering: Master AI & LLMs | 33.5 hrs | ~23.3 hrs | 20 min/day | ~Aug 15 |
 | 🎓 Udemy | Complete Data Science Bootcamp | 32.0 hrs | ~29.4 hrs | 20 min/day | ~Sep 15 |
+| 🎓 Udemy | The AI Engineer Course 2026 (365 Careers) | 29.8 hrs | 29.8 hrs | 20 min/day | ~Dec 17 (added Sep 18 · Phases 5–7) |
 | 📚 Reference | System Design on AWS | 612 p | 612 p | 15 p/day | ~May 17 |
 | 📖 Read | Python Made Easy → Practice Lab → Workout | 537 p | 537 p | ~19 p/day | May 3 |
 
@@ -152,12 +154,15 @@
 |----------------|------:|--------------------------|------:|
 | Building Applications with AI Agents | 355 | Mastering Claude AI | 401 |
 | Advanced AI and Data Science Applications | 329 | Generative AI for Software Development | 171 |
-| **Phase total** | **684** | | **572** |
+| Agentic Coding with Claude Code | 377 | | |
+| **Phase total** | **1,061** | | **572** |
 
 📚 **Reference companion:** Real-World Web Dev with .NET 10 — **12 p/day** continued from Phase 4 (~485p in Phase 5, full book done by ~Oct 4)
 *Hands-on AI agent design at the desk, while Speechify fills in the conceptual and prompting layer. All 3 Udemy courses are running continuously from Phase 1 — by this phase the LLM Engineering and Data Science courses should be well into their second halves.*
 
 > **Bonus:** Architecture as Code (~95p) — 🎧 Speechify when Mastering Claude AI is done
+
+> **Added Sep 18:** *Agentic Coding with Claude Code* (Eden Marco, 377p) joins the desk-read list — hands-on, so it stays 📖 Read rather than Speechify. Read target rises to ~25 p/day; anything unfinished by Oct 4 carries over into Phase 6. *The AI Engineer Course 2026* (365 Careers, 445 lectures · 29 h 46 m) runs alongside the other two courses from Phase 5 to the end of Phase 7 at 20 min/day, so the Udemy budget is 60 min/day in Phase 5 and 40 min/day in Phases 6–7.
 
 ---
 
@@ -206,8 +211,8 @@
 
 | | 📖 Read | 🎧 Speechify | 📚 Reference | Total |
 |--|-------:|------------:|------------:|------:|
-| Books | 15 | 9 | 4 | **28** |
-| Scheduled pages | 5,168 | 2,619 | 4,600 | **12,387** |
+| Books | 16 | 9 | 4 | **29** |
+| Scheduled pages | 5,545 | 2,619 | 4,600 | **12,764** |
 | Phases | 7 | — | companion | **38 weeks** |
 | Timeline | Apr 6, 2026 | → | → | **Dec 27, 2026** |
 
@@ -223,7 +228,7 @@
 | 2 · .NET Core ★ | 5–10 | May 4 – Jun 14 | C# Concurrency + Microservices .NET | Thinking Fast/Slow + CODED | C# 14 & .NET 10 |
 | 3 · Architecture | 11–16 | Jun 15 – Jul 26 | Fundamentals SWA + Clean Arch | Effective SE + Investing | System Design on AWS |
 | 4 · Angular & Web ★ | 17–20 | Jul 27 – Aug 23 | Modern Angular + AI Web Apps | Full Stack JS Strategies | Real-World Web .NET 10 |
-| 5 · AI Deep Dive | 21–26 | Aug 24 – Oct 4 | AI Agents + Advanced AI/DS | Mastering Claude + GenAI | Real-World Web .NET 10 |
+| 5 · AI Deep Dive | 21–26 | Aug 24 – Oct 4 | AI Agents + Advanced AI/DS + Agentic Coding w/ Claude Code | Mastering Claude + GenAI | Real-World Web .NET 10 |
 | 6 · Python Applied | 27–32 | Oct 5 – Nov 15 | Problem Solving + Coding with AI | — | Learning Python |
 | 7 · Python Advanced | 33–38 | Nov 16 – Dec 27 | Python OOP + SW Design | — | Learning Python |
 
@@ -252,6 +257,7 @@
 | [ ] | Advanced AI and Data Science Applications | 329 | 0 | 0% | | |
 | [ ] | Modern Angular | 306 | 0 | 0% | | |
 | [ ] | Build AI-Enhanced Web Apps | 394 | 0 | 0% | | |
+| [ ] | Agentic Coding with Claude Code | 377 | 0 | 0% | | |
 
 ### 🎧 Speechify Track
 
@@ -283,6 +289,7 @@
 | [ ] | Ultimate AWS Certified Cloud Practitioner CLF-C02 2026 | 44 / 322 | 13.7% | 14.5 hrs | 1.1 hrs | 7.8% | Phase 1 · Now |
 | [ ] | LLM Engineering: Master AI & Large Language Models | 63 / 208 | 30.3% | 33.5 hrs | ~10.2 hrs | 30.4% | Phase 1 · Now |
 | [ ] | Complete Data Science Bootcamp | 65 / 802 | 8.1% | 32.0 hrs | ~2.6 hrs | 8.1% | Phase 1 · Now |
+| [ ] | The AI Engineer Course 2026 | 0 / 445 | 0% | 29.8 hrs | 0 hrs | 0% | Phase 5 · Added Sep 18 |
 
 ---
 
@@ -305,8 +312,8 @@
 
 | Track | Total | Done | % Complete |
 |-------|------:|-----:|-----------:|
-| 📖 Read | 5,168 p | 0 p | 0% |
+| 📖 Read | 5,545 p | 0 p | 0% |
 | 🎧 Speechify | 2,619 p | 0 p | 0% |
 | 📚 Reference | 4,600 p | 0 p | 0% |
-| 🎓 Udemy | 80.0 hrs | 13.9 hrs | 17.4% |
-| **Combined (books)** | **12,387 p** | **0 p** | **0%** |
+| 🎓 Udemy | 109.8 hrs | 13.9 hrs | 12.7% |
+| **Combined (books)** | **12,764 p** | **0 p** | **0%** |

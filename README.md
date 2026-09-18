@@ -1,6 +1,6 @@
 # 📚 Reading Plan Tracker
 
-A personal reading and learning tracker for a 38-week, 7-phase curriculum covering 28 books and 3 Udemy courses.
+A personal reading and learning tracker for a 38-week, 7-phase curriculum covering 29 books and 4 Udemy courses.
 
 ## 🔗 Open the App
 
