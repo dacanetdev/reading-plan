@@ -156,7 +156,7 @@
       "lastLesson": 203
     },
     "data-science": {
-      "minutesWatched": 267,
+      "minutesWatched": 276,
       "lastLesson": 47
     },
     "ai-engineer": {
@@ -341,7 +341,7 @@
         "agentic-coding-claude": 53
       },
       "courses": {
-        "data-science": 30
+        "data-science": 39
       }
     }
   },
